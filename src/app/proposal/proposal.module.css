@@ -60,7 +60,7 @@
 .keywords span { padding: 8px 16px; border-radius: 999px; background: var(--gum-soft); font-weight: 500; }
 
 .scope { margin-top: 64px; background: var(--ink); color: #fff; padding-bottom: 72px; }
-.cards { margin-top: 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.cards { margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
 .cards > div { background: #fff; color: var(--ink); border-radius: 26px; padding: 28px; display: flex; flex-direction: column; gap: 10px; }
 .cards h3 { font-size: 24px; }
 .cards ul { margin: 0; padding-left: 20px; }
@@ -72,9 +72,41 @@
 .two > div { border: 1.5px solid #6b4a58; border-radius: 26px; padding: 24px 28px; }
 .two h3 { font-size: 20px; margin-bottom: 6px; }
 .two p { color: #eadde2; }
-.contact { margin-top: 32px; color: var(--gum-soft); }
+.contact { margin-top: 32px; color: var(--gum-soft); font-size: 18px; }
+.contact a { color: #fff; font-weight: 600; }
+.contact a:hover { color: var(--gum-soft); }
+
+.demoGrid { margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+.demoCard { background: var(--enamel); border-radius: 26px; padding: 24px; display: flex; flex-direction: column; gap: 8px; color: var(--ink); text-decoration: none; border: 2px solid transparent; min-height: 220px; }
+.demoCard:hover { border-color: var(--gum); color: var(--ink); }
+.demoTag { align-self: flex-start; font-size: 13px; font-weight: 600; color: var(--gum); background: #fff; padding: 3px 12px; border-radius: 999px; }
+.demoTitle { font-size: 24px; font-weight: 700; line-height: 1.25; }
+.demoText { color: var(--muted); }
+.demoGo { margin-top: auto; font-weight: 600; color: var(--gum); }
+
+.scopeLead { margin-top: 10px; color: #eadde2; }
+.priceTable { margin-top: 28px; background: #fff; color: var(--ink); border-radius: 26px; padding: 8px 28px; }
+.priceRow { display: flex; gap: 24px; align-items: center; justify-content: space-between; padding: 18px 0; border-bottom: 1px solid #eee5e8; }
+.priceRow > div { min-width: 0; }
+.priceName { font-size: 20px; font-weight: 700; }
+.priceWhat { margin-top: 2px; color: var(--muted); font-size: 15px; max-width: 46em; }
+.priceAmt { flex: 0 0 auto; font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.priceSum { border-bottom: 0; color: var(--muted); }
+.priceSum s { text-decoration-color: var(--gum); }
+.bundle { margin-top: 20px; background: var(--gum); border-radius: 26px; padding: 28px; display: flex; flex-wrap: wrap; gap: 20px 40px; align-items: center; justify-content: space-between; }
+.bundleKicker { font-weight: 600; color: var(--gum-soft); }
+.bundlePrice { font-size: clamp(44px, 6vw, 64px); font-weight: 700; line-height: 1.05; }
+.bundlePrice::after { content: " บาท"; font-size: 24px; }
+.bundle ul { margin: 0; padding-left: 20px; max-width: 34em; display: flex; flex-direction: column; gap: 6px; }
+.subH { margin-top: 44px; font-size: 24px; font-weight: 700; }
+.optional { font-size: 13px; font-weight: 600; background: var(--gum-soft); color: var(--ink); padding: 2px 10px; border-radius: 999px; vertical-align: middle; margin-left: 6px; }
+.market { margin-top: 24px; border: 1.5px solid #6b4a58; border-radius: 26px; padding: 24px 28px; }
+.market h3 { font-size: 20px; margin-bottom: 8px; }
+.market ul { margin: 0; padding-left: 20px; color: #eadde2; display: flex; flex-direction: column; gap: 6px; }
 
 @media (max-width: 640px) {
+  .priceTable { padding: 4px 18px; }
+  .priceRow { flex-direction: column; align-items: flex-start; gap: 6px; }
   .palette { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .markVariants > div { width: 84px; height: 84px; }
   .phoneWrap, .faqPhone { width: 100%; }

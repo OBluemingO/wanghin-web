@@ -33,6 +33,28 @@ const audit: { ok: boolean; what: string; detail: string }[] = [
 
 const keywords = ["ทำฟัน ลาดพร้าว", "ทำฟันประกันสังคม ลาดพร้าว", "ขูดหินปูนประกันสังคม", "ตัดเหงือกเลเซอร์ ราคา", "หมอเหงือก กรุงเทพ", "เหงือกร่น รักษา", "จัดฟัน ผ่อน 0%", "รักษารากฟัน วังหิน", "คลินิกทันตกรรม ใกล้โลตัสวังหิน"];
 
+
+const items: { name: string; what: string; price: number }[] = [
+  { name: "อัตลักษณ์แบรนด์", what: "เครื่องหมาย ชุดสี ตัวอักษร ลายขอบเหงือก และน้ำเสียงในการเขียน", price: 8000 },
+  { name: "เว็บไซต์ใหม่", what: "หน้าแรก บริการ 6 หน้า ทีมหมอพร้อมรูปจริง รีวิว การเดินทางพร้อมแผนที่ ย้ายเนื้อหาเดิมพร้อม redirect ทุกลิงก์ โหลดเร็วบนมือถือ", price: 32000 },
+  { name: "โมเดลฟัน 3 มิติ", what: "ปั้นโมเดลฟันทั้งปาก ชี้แล้วปากเปิด กดได้ทุกซี่และเหงือก หมุนได้รอบตัว บอกว่าซี่นั้นรักษาอะไรและหมอคนไหนดูแล", price: 12000 },
+  { name: "หน้าคลิปหมอหยง", what: "รวมคลิป TikTok พร้อมรูปปก แยกตามหัวข้อ คลิปปักหมุด เล่นคลิปในเว็บ และบทความจากคลิป 3 เรื่อง", price: 7000 },
+  { name: "LINE OA บอทจองคิว", what: "Rich menu จอง เลื่อน ยกเลิกนัดตามตารางหมอจริง เตือนก่อนวันนัด 1 วัน ตอบคำถามที่หมออนุมัติ 30 เรื่อง ส่งต่อเจ้าหน้าที่เมื่อเร่งด่วน", price: 28000 },
+  { name: "SEO ฐานแรก", what: "แก้ 8 จุดจากการตรวจเว็บเดิม ข้อมูลโครงสร้างแบบคลินิกทันตกรรม จัด Google Business Profile ติดตั้ง Search Console และ GA4", price: 9000 },
+];
+const listTotal = items.reduce((n, it) => n + it.price, 0);
+const BUNDLE = 79000;
+const CARE = 2500;
+const SEO_MONTHLY = 5000;
+const baht = (n: number) => n.toLocaleString("en-US");
+
+const demos: { tag: string; title: string; text: string; href: string; cta: string; line?: boolean }[] = [
+  { tag: "หน้าแรก", title: "โมเดลฟัน 3 มิติ", text: "ชี้ที่โมเดลให้ปากเปิด กดฟันแต่ละซี่หรือเหงือก ลากหมุนดูรอบตัว", href: "/", cta: "เปิดหน้าแรก" },
+  { tag: "LINE OA", title: "บอทจองคิว", text: "ลองจองคิวตั้งแต่เลือกอาการ เลือกหมอ เลือกเวลา จนได้เลขนัด", href: "#demo", cta: "ลองจองคิว", line: true },
+  { tag: "TikTok", title: "คลิปหมอหยง", text: "คลิปจริงจาก @dr.yongka พร้อมรูปปก แยกหัวข้อ และบทความจากคลิป", href: "/videos", cta: "เปิดหน้าคลิป" },
+  { tag: "การเดินทาง", title: "แผนที่และนำทาง", text: "แผนที่ในเว็บไม่มีค่าใช้จ่ายรายเดือน กดนำทางด้วย Google Maps ได้ทันที", href: "/#visit", cta: "ดูแผนที่" },
+];
+
 export default function Proposal() {
   return (
     <main className={styles.page}>
@@ -48,10 +70,25 @@ export default function Proposal() {
           <p className={styles.kicker}>ข้อเสนอจาก ตอบไว Studio สำหรับ Dental Care @วังหิน</p>
           <h1 className={`h-display ${styles.h1}`}>Phase 1 ใช้เวลา 6 สัปดาห์<br />ได้เว็บใหม่ บอทจองคิว และฐาน SEO</h1>
           <nav className={styles.toc} aria-label="ส่วนของข้อเสนอ">
-            <a href="#brand">อัตลักษณ์แบรนด์</a><a href="#line-bot">LINE บอท</a><a href="#seo">SEO</a><a href="#scope">ขอบเขตงาน</a>
+            <a href="#demo">เว็บตัวอย่าง</a><a href="#brand">อัตลักษณ์แบรนด์</a><a href="#line-bot">LINE บอท</a><a href="#seo">SEO</a><a href="#scope">ราคาและขอบเขตงาน</a>
           </nav>
         </div>
       </header>
+
+      <section id="demo" className={`wrap ${styles.section}`}>
+        <h2 className={`h-display ${styles.h2}`}>ลองของจริงในเว็บตัวอย่าง</h2>
+        <p className="lead narrow">ทุกอย่างในข้อเสนอนี้ทำเป็นเว็บที่ใช้งานได้แล้ว เปิดบนมือถือหรือคอมพิวเตอร์ได้เลย</p>
+        <div className={styles.demoGrid}>
+          {demos.map((d) => (
+            <Link key={d.title} href={d.href} className={styles.demoCard} {...(d.line ? { "data-line-demo": "" } : {})}>
+              <span className={styles.demoTag}>{d.tag}</span>
+              <span className={`h-display ${styles.demoTitle}`}>{d.title}</span>
+              <span className={styles.demoText}>{d.text}</span>
+              <span className={styles.demoGo}>{d.cta}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
 
       <section id="brand" className={`wrap ${styles.section}`}>
         <h2 className={`h-display ${styles.h2}`}>อัตลักษณ์แบรนด์</h2>
@@ -173,15 +210,68 @@ export default function Proposal() {
 
       <section id="scope" className={styles.scope}>
         <div className={`wrap ${styles.section}`}>
-          <h2 className={`h-display ${styles.h2}`}>ขอบเขตงาน Phase 1</h2>
-          <div className={styles.cards}>
-            <div><h3 className="h-display">เว็บไซต์ใหม่</h3><ul><li>อัตลักษณ์แบรนด์ เครื่องหมาย สี ตัวอักษร</li><li>หน้าแรกพร้อมโมเดลฟัน 3 มิติ</li><li>หน้าบริการ 6 หน้า ทีมหมอ การเดินทาง</li><li>ย้ายรีวิวและเคสเดิม พร้อม redirect</li></ul><p className="h-display">[ราคา] บาท</p></div>
-            <div><h3 className="h-display">LINE OA บอท</h3><ul><li>Rich menu ตามแบรนด์ใหม่</li><li>จอง เลื่อน ยกเลิกนัดตามตารางหมอ</li><li>ข้อความเตือนก่อนวันนัด 1 วัน</li><li>ตอบคำถามที่หมออนุมัติ 30 เรื่อง</li></ul><p className="h-display">[ราคา] บาท + [ค่าดูแล]/เดือน</p></div>
-            <div><h3 className="h-display">SEO ฐานแรก</h3><ul><li>แก้ 8 จุดจากการตรวจเว็บเดิม</li><li>ข้อมูลโครงสร้างแบบคลินิกทันตกรรม</li><li>จัด Google Business Profile</li><li>บทความ 4 เรื่อง Search Console GA4</li></ul><p className="h-display">[ราคา] บาท</p></div>
+          <h2 className={`h-display ${styles.h2}`}>ขอบเขตงานและราคา Phase 1</h2>
+          <p className={styles.scopeLead}>ราคาเป็นเงินบาท จ่ายครั้งเดียว ทุกงานเป็นของคลินิกทั้งหมด รวมโค้ดและบัญชีต่างๆ</p>
+
+          <div className={styles.priceTable} role="table" aria-label="ราคางานแต่ละส่วน">
+            {items.map((it) => (
+              <div key={it.name} role="row" className={styles.priceRow}>
+                <div role="cell">
+                  <p className={`h-display ${styles.priceName}`}>{it.name}</p>
+                  <p className={styles.priceWhat}>{it.what}</p>
+                </div>
+                <p role="cell" className={`h-display ${styles.priceAmt}`}>{baht(it.price)}</p>
+              </div>
+            ))}
+            <div role="row" className={`${styles.priceRow} ${styles.priceSum}`}>
+              <p role="cell">รวมแยกรายการ</p>
+              <p role="cell" className={`h-display ${styles.priceAmt}`}><s>{baht(listTotal)}</s></p>
+            </div>
           </div>
+
+          <div className={styles.bundle}>
+            <div>
+              <p className={styles.bundleKicker}>ราคาเหมา Phase 1 ทั้งชุด</p>
+              <p className={`h-display ${styles.bundlePrice}`}>{baht(BUNDLE)}</p>
+              <p>ประหยัด {baht(listTotal - BUNDLE)} บาท เทียบกับจ้างแยกรายการ</p>
+            </div>
+            <ul>
+              <li>แบ่งจ่าย 3 งวด: 50% เมื่อเริ่มงาน 30% เมื่อส่งเว็บให้ทดสอบ 20% เมื่อเปิดใช้งานจริง</li>
+              <li>แก้งานได้ 2 รอบต่อส่วน ยืนราคา 30 วัน</li>
+            </ul>
+          </div>
+
+          <h3 className={`h-display ${styles.subH}`}>ค่าใช้จ่ายรายเดือนหลังเปิดใช้งาน</h3>
+          <div className={styles.cards}>
+            <div>
+              <h3 className="h-display">ดูแลระบบ</h3>
+              <ul><li>โฮสต์เว็บและเซิร์ฟเวอร์บอท LINE</li><li>แก้ราคา ตารางหมอ คำตอบบอท ตามที่คลินิกแจ้ง</li><li>สำรองข้อมูลและอัปเดตความปลอดภัย</li><li>รายงานนัดที่จองผ่าน LINE ทุกเดือน</li></ul>
+              <p className="h-display">{baht(CARE)} บาท/เดือน</p>
+            </div>
+            <div>
+              <h3 className="h-display">SEO ต่อเนื่อง <span className={styles.optional}>เลือกเพิ่มได้</span></h3>
+              <ul><li>บทความใหม่ 2 เรื่องต่อเดือน เรียบเรียงจากคลิปหมอหยง</li><li>โพสต์และตอบรีวิวบน Google Business Profile</li><li>ติดตามอันดับคำค้นและรายงานผล</li></ul>
+              <p className="h-display">{baht(SEO_MONTHLY)} บาท/เดือน</p>
+            </div>
+            <div>
+              <h3 className="h-display">คลินิกจ่ายตรง</h3>
+              <ul><li>LINE OA แพ็กเกจฟรีส่งได้ 300 ข้อความ/เดือน ข้อความที่บอทตอบกลับไม่นับ</li><li>ถ้าส่งข้อความเตือนนัดเกินโควตา ใช้แพ็กเกจ Basic 1,280 บาท/เดือน (15,000 ข้อความ)</li><li>ต่ออายุโดเมนเดิมของคลินิกตามปกติ</li></ul>
+              <p className="h-display">0–1,280 บาท/เดือน</p>
+            </div>
+          </div>
+
+          <div className={styles.market}>
+            <h3 className="h-display">เทียบกับราคาตลาด</h3>
+            <ul>
+              <li>เว็บคลินิกจากเอเจนซีทั่วไปเริ่มราว 20,000–26,000 บาท จ่ายครั้งเดียว ได้หน้าทีมแพทย์และ SEO พื้นฐาน ไม่มีบอทจองคิว ไม่มีโมเดล 3 มิติ</li>
+              <li>ระบบแชทและจองคิวสำเร็จรูปสำหรับคลินิก 590–6,000 บาทต่อเดือน หรือ 7,000–72,000 บาทต่อปี ไม่ได้เป็นเจ้าของระบบ</li>
+              <li>บอทในข้อเสนอนี้จ่ายครั้งเดียวและเป็นของคลินิก ค่าดูแลรวมโฮสต์อยู่ที่ {baht(CARE)} บาทต่อเดือน</li>
+            </ul>
+          </div>
+
           <ol className={styles.timeline}>
             <li><b className="h-display">สัปดาห์ 1</b><span>เก็บตารางหมอ ราคา รูปจริง และคำตอบที่หมออนุมัติ</span></li>
-            <li><b className="h-display">สัปดาห์ 2–3</b><span>สร้างเว็บใหม่ ย้ายเนื้อหาเดิม ทำโมเดลฟัน</span></li>
+            <li><b className="h-display">สัปดาห์ 2–3</b><span>สร้างเว็บใหม่ ย้ายเนื้อหาเดิม ทำโมเดลฟันและหน้าคลิป</span></li>
             <li><b className="h-display">สัปดาห์ 3–4</b><span>ตั้งบอทจองคิวและถาม-ตอบ ทดสอบกับทีมคลินิก</span></li>
             <li><b className="h-display">สัปดาห์ 5</b><span>เปิดใช้งานจริง ย้ายโดเมน ตั้งค่า SEO และ Google Maps</span></li>
             <li><b className="h-display">สัปดาห์ 6</b><span>ปรับจากข้อความลูกค้าจริง ส่งรายงานผลแรก</span></li>
@@ -190,7 +280,9 @@ export default function Proposal() {
             <div><h3 className="h-display">คลินิกช่วยเตรียม</h3><p>ตารางลงตรวจของหมอแต่ละท่าน รูปหมอและรูปคลินิก ราคางานที่ให้บอกได้ เลขใบอนุญาตสถานพยาบาล สิทธิ์แอดมิน LINE OA และโดเมนเดิม</p></div>
             <div><h3 className="h-display">สิ่งที่จะวัดหลังเปิดใช้</h3><p>จำนวนนัดที่จองผ่าน LINE ต่อสัปดาห์ ข้อความที่บอทตอบเองเทียบกับที่ส่งต่อคน การกดโทรและกดจองจากเว็บ และคำค้นที่ขึ้นหน้าแรกของ Google</p></div>
           </div>
-          <p className={styles.contact}>ติดต่อ ตอบไว Studio: [ชื่อ] [เบอร์โทร] [อีเมล]</p>
+          <p className={styles.contact}>
+            ติดต่อ: Phayuphat Trilao · <a href="tel:+66825914037">082-591-4037</a> · <a href="mailto:phayuphat118@gmail.com">phayuphat118@gmail.com</a>
+          </p>
         </div>
       </section>
     </main>
