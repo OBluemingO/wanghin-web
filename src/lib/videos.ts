@@ -42,6 +42,8 @@ export type Clip = {
   duration?: string;
   date: string;
   pinned?: boolean;
+  /** Cover frame from the clip, saved in public/thumbs (540×960 WebP). */
+  thumb?: string;
   /** Article drafted from the clip. Needs the doctor's review before going live. */
   article?: {
     minutes: number;
@@ -139,6 +141,9 @@ export const clips: Clip[] = [
     likes: 101, date: "2024-02-06",
   },
 ];
+
+// Every clip on the site has its cover saved under public/thumbs/<slug>.webp.
+for (const c of clips) c.thumb = `/thumbs/${c.slug}.webp`;
 
 export const toneOf = (topic: string): Tone => topics.find((t) => t.name === topic)?.tone ?? "mist";
 export const fmt = (n: number) => n.toLocaleString("en-US");

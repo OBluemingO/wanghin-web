@@ -199,15 +199,30 @@ button.btn-primary, button.btn-white { border: 0; font: inherit; font-weight: 60
 .vcover.tone-mist { --gumfill: var(--gum-soft); }
 .vcover-title { font-size: 21px; font-weight: 700; line-height: 1.25; }
 .vcover.big .vcover-title { font-size: clamp(24px, 2.6vw, 32px); }
-.vcover-foot { margin-top: auto; margin-bottom: 30px; display: flex; align-items: center; gap: 10px; position: relative; z-index: 1; }
+.vcover-foot { margin-top: auto; margin-bottom: 30px; display: flex; align-items: center; gap: 10px; position: relative; z-index: 2; }
+.vplay { flex: 0 0 auto; filter: drop-shadow(0 2px 6px rgba(28, 12, 20, 0.45)); }
 .vcover-meta { font-size: 13px; font-weight: 600; }
 .vcover-gum { position: absolute; left: 0; right: 0; bottom: 0; width: 100%; height: 24px; fill: var(--gumfill); }
-.vpin { align-self: flex-start; background: var(--gum); color: #fff; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
+.vpin { position: relative; z-index: 2; align-self: flex-start; background: var(--gum); color: #fff; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; }
 .tone-ink .vpin { background: #fff; color: var(--ink); }
 
 .vcard { display: flex; flex-direction: column; gap: 8px; color: var(--ink); text-decoration: none; }
 .vcard:hover { color: var(--ink); }
-.vcard:hover .vcover { outline: 3px solid var(--gum); outline-offset: 3px; }
+.vcard:hover .vcover, .vcard:focus-visible .vcover { outline: 3px solid var(--gum); outline-offset: 3px; }
+
+/* cover with the clip's own frame: every overlay sits on a solid chip or a dark scrim */
+.vcover.photo { padding: 0; background: #2a1820; color: #fff; }
+.vcover.photo .vphoto { object-fit: cover; transition: transform 0.35s ease; }
+.vcover.photo::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 28%; z-index: 1; pointer-events: none;
+  background: linear-gradient(to top, rgba(28, 12, 20, 0.92) 0%, rgba(28, 12, 20, 0.62) 45%, rgba(28, 12, 20, 0) 100%); }
+.vcover.photo .vpin { position: absolute; left: 10px; top: 10px; box-shadow: 0 2px 8px rgba(28, 12, 20, 0.35); }
+.vdur { position: absolute; right: 10px; top: 10px; z-index: 2; background: rgba(28, 12, 20, 0.88); color: #fff; font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 999px; font-variant-numeric: tabular-nums; }
+.vcover.photo .vcover-foot { position: absolute; left: 12px; right: 12px; bottom: 12px; margin: 0; }
+.vcover.photo .vcover-meta { font-size: 14px; font-weight: 700; color: #fff; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7); }
+.vcover.photo.big .vcover-foot { left: 18px; bottom: 18px; }
+.vcover.photo.big .vcover-meta { font-size: 16px; }
+.vcard:hover .vphoto { transform: scale(1.04); }
+@media (prefers-reduced-motion: reduce) { .vcover.photo .vphoto { transition: none; } .vcard:hover .vphoto { transform: none; } }
 .vcard-topic { font-size: 13px; color: var(--gum); font-weight: 600; }
 .vcard-title { font-size: 16px; font-weight: 600; line-height: 1.4; }
 .vgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 28px 20px; }
@@ -216,7 +231,8 @@ button.btn-primary, button.btn-white { border: 0; font: inherit; font-weight: 60
 .vpinned { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 20px; }
 .vpinned-card { display: flex; gap: 18px; background: #fff; border-radius: 28px; padding: 16px; color: var(--ink); text-decoration: none; border: 2px solid transparent; }
 .vpinned-card:hover { border-color: var(--gum); color: var(--ink); }
-.vpinned-card .vcover { flex: 0 0 140px; padding: 12px 10px 0; }
+.vpinned-card .vcover { flex: 0 0 140px; }
+.vpinned-card .vcover:not(.photo) { padding: 12px 10px 0; }
 .vpinned-card .vcover-title { font-size: 15px; }
 .vpinned-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; padding: 4px 0; }
 .vpinned-title { font-size: 22px; font-weight: 700; line-height: 1.3; }
@@ -254,7 +270,7 @@ button.btn-primary, button.btn-white { border: 0; font: inherit; font-weight: 60
 .vplayer-btn { all: unset; cursor: pointer; display: block; position: relative; border-radius: 22px; }
 .vplayer-btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 .vplayer-btn .vcover { border-radius: 22px; }
-.vplayer-hint { position: absolute; left: 50%; top: 58%; transform: translate(-50%, -50%); background: rgba(59, 30, 42, 0.86); color: #fff; font-size: 14px; padding: 8px 14px; border-radius: 999px; white-space: nowrap; }
+.vplayer-hint { position: absolute; z-index: 3; left: 50%; top: 50%; transform: translate(-50%, -50%); background: rgba(28, 12, 20, 0.9); font-weight: 600; box-shadow: 0 4px 16px rgba(28, 12, 20, 0.4); color: #fff; font-size: 14px; padding: 8px 14px; border-radius: 999px; white-space: nowrap; }
 .vdetail-stats { color: var(--ink); }
 .vbook { background: #fff; border-radius: 24px; padding: 20px; display: flex; flex-direction: column; gap: 8px; }
 .vbook-title { font-size: 20px; font-weight: 700; }

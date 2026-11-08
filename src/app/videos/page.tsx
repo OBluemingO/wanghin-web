@@ -55,7 +55,7 @@ export default function VideosPage() {
           <div className="vpinned">
             {pinned.map((c) => (
               <Link key={c.slug} href={`/videos/${c.slug}`} className="vpinned-card">
-                <VideoCover clip={c} />
+                <VideoCover clip={c} sizes="140px" />
                 <span className="vpinned-body">
                   <span className="vcard-topic">{c.topic}</span>
                   <span className="h-display vpinned-title">{c.title}</span>

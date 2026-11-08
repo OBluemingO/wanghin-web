@@ -23,7 +23,7 @@ export default function TikTokPlayer({ clip }: { clip: Clip }) {
   }
   return (
     <button type="button" className="vplayer-btn" onClick={() => setOn(true)} aria-label={`เล่นคลิป ${clip.title}`}>
-      <VideoCover clip={clip} big />
+      <VideoCover clip={clip} big sizes="(max-width: 640px) 300px, 360px" />
       <span className="vplayer-hint">กดเพื่อเล่นคลิปจาก TikTok</span>
     </button>
   );

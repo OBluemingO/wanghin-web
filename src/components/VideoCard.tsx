@@ -1,17 +1,40 @@
+import Image from "next/image";
 import Link from "next/link";
 import { type Clip, fmt, toneOf } from "@/lib/videos";
 
-/** A clip as a typographic cover: TikTok thumbnails expire, so the title is the cover. */
-export function VideoCover({ clip, big = false }: { clip: Clip; big?: boolean }) {
+function PlayDisc({ size = 40 }: { size?: number }) {
+  return (
+    <svg aria-hidden="true" width={size} height={size} viewBox="0 0 40 40" className="vplay">
+      <circle cx="20" cy="20" r="20" fill="#FFFFFF" />
+      <path d="M16 12.5 L28 20 L16 27.5 Z" fill="#3B1E2A" />
+    </svg>
+  );
+}
+
+/**
+ * A clip's cover. With a saved frame, the photo fills the card and everything on it sits on a
+ * solid chip or a dark scrim so it reads over any frame. Without one, the title is the cover.
+ */
+export function VideoCover({ clip, big = false, sizes = "(max-width: 640px) 50vw, 230px" }: { clip: Clip; big?: boolean; sizes?: string }) {
+  if (clip.thumb) {
+    return (
+      <div className={`vcover photo${big ? " big" : ""}`}>
+        <Image src={clip.thumb} alt="" fill sizes={sizes} className="vphoto" />
+        {clip.pinned && <span className="vpin">ปักหมุด</span>}
+        {clip.duration && <span className="vdur">{clip.duration}</span>}
+        <span className="vcover-foot">
+          <PlayDisc size={big ? 56 : 40} />
+          <span className="vcover-meta">{fmt(clip.likes)} ไลก์</span>
+        </span>
+      </div>
+    );
+  }
   return (
     <div className={`vcover tone-${toneOf(clip.topic)}${big ? " big" : ""}`}>
       {clip.pinned && <span className="vpin">ปักหมุด</span>}
       <span className="h-display vcover-title">{clip.title}</span>
       <span className="vcover-foot">
-        <svg aria-hidden="true" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-          <circle cx="12" cy="12" r="10" />
-          <path d="M10 8.2l5.6 3.8-5.6 3.8z" fill="currentColor" stroke="none" />
-        </svg>
+        <PlayDisc size={34} />
         <span className="vcover-meta">
           {fmt(clip.likes)} ไลก์{clip.duration ? ` · ${clip.duration}` : ""}
         </span>
