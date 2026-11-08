@@ -19,12 +19,9 @@ const SLOTS = ["ส. 7 พ.ย. 11:00", "ส. 7 พ.ย. 14:30", "อา. 8 พ.
 const WELCOME: Msg = { kind: "bot", text: "สวัสดีค่ะ Dental Care @วังหิน\nกดเมนูด้านล่าง หรือพิมพ์คำถามมาได้ตลอด 24 ชม." };
 
 export function ClinicAvatar({ size = 36 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden="true">
-      <rect width="48" height="48" rx="24" fill="#B8445F" />
-      <path d="M12 36 L12 26 Q18 16 24 26 Q30 16 36 26 L36 36 Z" fill="#FFFFFF" />
-    </svg>
-  );
+  // The clinic's own profile picture, as patients see it on LINE and Facebook.
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src="/clinic-logo.png" width={size} height={size} alt="" style={{ borderRadius: "50%", background: "#fff", flex: "0 0 auto" }} />;
 }
 
 export default function LineChat({ onClose }: { onClose?: () => void }) {
