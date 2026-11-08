@@ -104,7 +104,29 @@
 .market h3 { font-size: 20px; margin-bottom: 8px; }
 .market ul { margin: 0; padding-left: 20px; color: #eadde2; display: flex; flex-direction: column; gap: 6px; }
 
+.changes { padding-bottom: 80px; }
+.steps { margin: 28px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+.steps li { background: var(--enamel); border-radius: 24px; padding: 22px; display: flex; flex-direction: column; gap: 6px; }
+.steps b { font-size: 18px; }
+.steps li > span:last-child { color: var(--muted); }
+.stepN { width: 40px; height: 40px; border-radius: 50%; background: var(--gum); color: #fff; font-size: 20px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+.changeGrid { margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+.freeBox, .addonBox { border-radius: 24px; padding: 24px; }
+.freeBox { background: var(--gum-mist); }
+.addonBox { border: 1.5px solid #e2d6db; }
+.freeBox h3, .addonBox h3 { font-size: 21px; font-weight: 700; margin-bottom: 10px; }
+.freeBox ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.addons { list-style: none; margin: 0 0 12px; padding: 0; }
+.addons li { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid #eee5e8; }
+.addons b { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.addons small { font-weight: 500; color: var(--muted); font-size: 14px; }
+.talk { margin-top: 20px; background: var(--enamel); border-radius: 26px; padding: 26px 28px; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; justify-content: space-between; }
+.talkTitle { font-size: 22px; font-weight: 700; }
+.talkBtns { display: flex; flex-wrap: wrap; gap: 10px; }
+.talkBtns :global(.btn-primary) { margin-top: 0; }
+
 @media (max-width: 640px) {
+  .addons li { flex-direction: column; gap: 2px; }
   .priceTable { padding: 4px 18px; }
   .priceRow { flex-direction: column; align-items: flex-start; gap: 6px; }
   .palette { grid-template-columns: repeat(3, minmax(0, 1fr)); }

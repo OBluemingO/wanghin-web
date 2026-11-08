@@ -48,6 +48,15 @@ const CARE = 1500;
 const SEO_MONTHLY = 2500;
 const baht = (n: number) => n.toLocaleString("en-US");
 
+const addons: { name: string; price: number; unit?: string }[] = [
+  { name: "หน้าบริการหรือหน้าโปรโมชันเพิ่ม", price: 1500, unit: "หน้า" },
+  { name: "บทความจากคลิปหมอหยงเพิ่ม", price: 800, unit: "เรื่อง" },
+  { name: "คำตอบบอท LINE เพิ่ม 10 เรื่อง", price: 1000 },
+  { name: "แกลเลอรีเคสก่อน-หลังรักษา", price: 3000 },
+  { name: "เว็บภาษาอังกฤษสำหรับคนไข้ต่างชาติ", price: 6000 },
+  { name: "ส่งนัดเข้า Google Calendar ของหมอแต่ละท่าน", price: 3000 },
+];
+
 const demos: { tag: string; title: string; text: string; href: string; cta: string; line?: boolean }[] = [
   { tag: "หน้าแรก", title: "โมเดลฟัน 3 มิติ", text: "ชี้ที่โมเดลให้ปากเปิด กดฟันแต่ละซี่หรือเหงือก ลากหมุนดูรอบตัว", href: "/", cta: "เปิดหน้าแรก" },
   { tag: "LINE OA", title: "บอทจองคิว", text: "ลองจองคิวตั้งแต่เลือกอาการ เลือกหมอ เลือกเวลา จนได้เลขนัด", href: "#demo", cta: "ลองจองคิว", line: true },
@@ -70,7 +79,7 @@ export default function Proposal() {
           <p className={styles.kicker}>ข้อเสนอจาก ตอบไว Studio สำหรับ Dental Care @วังหิน</p>
           <h1 className={`h-display ${styles.h1}`}>ใช้เวลา 6 สัปดาห์<br />ได้เว็บใหม่ บอทจองคิว และฐาน SEO</h1>
           <nav className={styles.toc} aria-label="ส่วนของข้อเสนอ">
-            <a href="#demo">เว็บตัวอย่าง</a><a href="#brand">อัตลักษณ์แบรนด์</a><a href="#line-bot">LINE บอท</a><a href="#seo">SEO</a><a href="#scope">ราคาและขอบเขตงาน</a>
+            <a href="#demo">เว็บตัวอย่าง</a><a href="#brand">อัตลักษณ์แบรนด์</a><a href="#line-bot">LINE บอท</a><a href="#seo">SEO</a><a href="#scope">ราคาและขอบเขตงาน</a><a href="#changes">เพิ่มหรือปรับงาน</a>
           </nav>
         </div>
       </header>
@@ -286,6 +295,48 @@ export default function Proposal() {
           </p>
         </div>
       </section>
+      <section id="changes" className={`wrap ${styles.section} ${styles.changes}`}>
+        <h2 className={`h-display ${styles.h2}`}>อยากเพิ่มหรือปรับอะไร คุยกันได้</h2>
+        <p className="lead narrow">ขอบเขตด้านบนเป็นจุดเริ่มต้น ถ้าคลินิกอยากได้เพิ่ม หรืออยากเปลี่ยนสิ่งที่ตกลงไว้ ทั้งก่อนเริ่มงาน ระหว่างทำ หรือหลังเปิดใช้ แจ้งได้ตลอด</p>
+
+        <ol className={styles.steps}>
+          <li><span className={`h-display ${styles.stepN}`}>1</span><b>บอกสิ่งที่อยากได้</b><span>โทร ส่งอีเมล หรือส่งรูปตัวอย่างที่ชอบมาก็ได้ ไม่ต้องเขียนเป็นเอกสาร</span></li>
+          <li><span className={`h-display ${styles.stepN}`}>2</span><b>ได้ราคาและเวลาก่อนเริ่ม</b><span>เราประเมินกลับภายใน 2 วันทำการ บอกชัดว่าเพิ่มกี่บาท ใช้เวลากี่วัน กระทบกำหนดเปิดหรือไม่</span></li>
+          <li><span className={`h-display ${styles.stepN}`}>3</span><b>ตกลงแล้วค่อยทำ</b><span>ไม่มีค่าใช้จ่ายที่ไม่ได้ตกลงกันก่อน ถ้าราคาไม่เหมาะ ตัดหรือเลื่อนไปทำทีหลังได้</span></li>
+        </ol>
+
+        <div className={styles.changeGrid}>
+          <div className={styles.freeBox}>
+            <h3 className="h-display">ไม่คิดเพิ่ม</h3>
+            <ul>
+              <li>แก้งานในขอบเขตเดิม 2 รอบต่อส่วน เช่น สี ข้อความ รูป ลำดับหัวข้อ</li>
+              <li>ระหว่างใช้บริการดูแลรายเดือน แก้ราคา ตารางหมอ เวลาเปิด และคำตอบบอทได้ตลอด</li>
+              <li>แก้จุดที่ทำงานไม่ถูกต้อง ไม่ว่าเมื่อไหร่ก็ตาม</li>
+            </ul>
+          </div>
+          <div className={styles.addonBox}>
+            <h3 className="h-display">งานเพิ่มที่คลินิกมักขอ <span className={styles.optional}>ราคาเริ่มต้น</span></h3>
+            <ul className={styles.addons}>
+              {addons.map((a) => (
+                <li key={a.name}><span>{a.name}</span><b className="h-display">{baht(a.price)} บาท{a.unit ? <small> / {a.unit}</small> : null}</b></li>
+              ))}
+            </ul>
+            <p className="muted small">งานที่ไม่อยู่ในรายการนี้ก็ทำได้ ประเมินราคาให้ตามขั้นตอนด้านบน</p>
+          </div>
+        </div>
+
+        <div className={styles.talk}>
+          <div>
+            <p className={`h-display ${styles.talkTitle}`}>คุยรายละเอียดหรือปรับ requirement</p>
+            <p className="muted">Phayuphat Trilao · ตอบไว Studio</p>
+          </div>
+          <div className={styles.talkBtns}>
+            <a href="tel:+66825914037" className="btn-primary">โทร 082-591-4037</a>
+            <a href={`mailto:phayuphat118@gmail.com?subject=${encodeURIComponent("ขอเพิ่มหรือปรับงานเว็บ Dental Care @วังหิน")}`} className="btn-outline">ส่งอีเมล</a>
+          </div>
+        </div>
+      </section>
+
     </main>
   );
 }
