@@ -25,6 +25,7 @@ export default function ClinicMap() {
       try {
         const maplibregl = await import("maplibre-gl");
         if (cancelled) return;
+        maplibregl.setWorkerUrl("/maplibre/maplibre-gl-worker.mjs");
         const { lat, lng } = clinic.geo;
         const m = new maplibregl.Map({
           container: el,
