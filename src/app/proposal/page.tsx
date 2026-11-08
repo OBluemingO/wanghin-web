@@ -1,0 +1,198 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import LineChat, { ClinicAvatar } from "@/components/LineChat";
+import { BrandMark, GumLine } from "@/components/Icons";
+import styles from "./proposal.module.css";
+
+export const metadata: Metadata = {
+  title: "ข้อเสนอ Phase 1 จาก ตอบไว Studio",
+  description: "อัตลักษณ์แบรนด์ เว็บไซต์ใหม่ LINE OA บอทจองคิว และแผน SEO สำหรับ Dental Care @Wanghin",
+  robots: { index: false, follow: false },
+};
+
+const palette = [
+  { name: "ชมพูเหงือก", hex: "#B8445F", use: "ปุ่มหลัก" },
+  { name: "เหงือกอ่อน", hex: "#F2CBD4", use: "พื้นแถบเด่น" },
+  { name: "หมึกพลัม", hex: "#3B1E2A", use: "ตัวหนังสือ" },
+  { name: "เคลือบฟัน", hex: "#F4F6F5", use: "พื้นหลัง" },
+  { name: "เทาสะอาด", hex: "#E7ECEA", use: "ช่องรูปภาพ" },
+];
+
+const audit: { ok: boolean; what: string; detail: string }[] = [
+  { ok: false, what: "ไม่มีข้อมูลโครงสร้าง (schema)", detail: "Google ไม่รู้เวลาเปิด ที่อยู่ เบอร์ ว่าเป็นคลินิกทันตกรรม" },
+  { ok: false, what: "รูป 45 จาก 46 รูปไม่มี alt", detail: "Google ค้นหารูปเคสจัดฟันและเลเซอร์ไม่เจอ" },
+  { ok: false, what: "มี H1 ถึง 5 อันในหน้าแรก", detail: "รวม \"หน้าแรก\" และ \"We Specialize In\" หัวข้อหลักไม่ชัด" },
+  { ok: false, what: "คำอธิบายหน้าซ้ำกับชื่อหน้า", detail: "ผลค้นหาไม่มีเหตุผลให้คนกดเข้า" },
+  { ok: false, what: "URL เป็นตัวเลข เมนูมีคำซ้ำ", detail: "เช่น /17544317/ และเมนู \"รักษาโรคเหงือก\" ซ้ำ 4 ครั้งในชื่อลิงก์เดียว" },
+  { ok: false, what: "LINE ID ไม่ตรงกันในแต่ละหน้า", detail: "@cem0540l ในหน้าติดต่อ แต่ @dentalcarewanghin ในหน้าโปรโมชัน" },
+  { ok: false, what: "บทความโควิดซ้ำในหลายหน้า", detail: "เนื้อหาเดียวกันอยู่ทั้งหน้าแรก เกี่ยวกับเรา และบริการ" },
+  { ok: false, what: "เบอร์โทรกดโทรไม่ได้ โหลด 3.2 วินาที", detail: "jQuery รุ่นปี 2013 ไม่มีลิงก์ tel: บนมือถือ" },
+  { ok: true, what: "มี sitemap.xml, canonical, Open Graph", detail: "robots.txt ยังว่างอยู่" },
+  { ok: true, what: "มีเนื้อหาที่หมอเขียนเองจำนวนมาก", detail: "เรื่องเหงือกร่นและเลเซอร์ นำมาเรียบเรียงเป็นบทความได้ทันที" },
+];
+
+const keywords = ["ทำฟัน ลาดพร้าว", "ทำฟันประกันสังคม ลาดพร้าว", "ขูดหินปูนประกันสังคม", "ตัดเหงือกเลเซอร์ ราคา", "หมอเหงือก กรุงเทพ", "เหงือกร่น รักษา", "จัดฟัน ผ่อน 0%", "รักษารากฟัน วังหิน", "คลินิกทันตกรรม ใกล้โลตัสวังหิน"];
+
+export default function Proposal() {
+  return (
+    <main className={styles.page}>
+      <header className={styles.top}>
+        <div className={`wrap ${styles.topRow}`}>
+          <Link href="/" className="brand" aria-label="กลับไปหน้าเว็บตัวอย่าง">
+            <BrandMark />
+            <span className="brand-text"><span className="h-display brand-name">Dental Care</span><span className="brand-at">@วังหิน</span></span>
+          </Link>
+          <Link href="/" className="btn-primary">ดูเว็บตัวอย่าง</Link>
+        </div>
+        <div className="wrap">
+          <p className={styles.kicker}>ข้อเสนอจาก ตอบไว Studio สำหรับ Dental Care @วังหิน</p>
+          <h1 className={`h-display ${styles.h1}`}>Phase 1 ใช้เวลา 6 สัปดาห์<br />ได้เว็บใหม่ บอทจองคิว และฐาน SEO</h1>
+          <nav className={styles.toc} aria-label="ส่วนของข้อเสนอ">
+            <a href="#brand">อัตลักษณ์แบรนด์</a><a href="#line-bot">LINE บอท</a><a href="#seo">SEO</a><a href="#scope">ขอบเขตงาน</a>
+          </nav>
+        </div>
+      </header>
+
+      <section id="brand" className={`wrap ${styles.section}`}>
+        <h2 className={`h-display ${styles.h2}`}>อัตลักษณ์แบรนด์</h2>
+        <div className={styles.brandGrid}>
+          <div className={styles.markCol}>
+            <div className={styles.lockup}>
+              <BrandMark size={96} label="เครื่องหมาย Dental Care @วังหิน" />
+              <div><div className="h-display" style={{ fontSize: 46, fontWeight: 700, lineHeight: 1.05 }}>Dental Care</div><div style={{ fontSize: 26, color: "var(--gum)", fontWeight: 600 }}>@วังหิน</div></div>
+            </div>
+            <p>เครื่องหมายคือแนวขอบเหงือกที่โอบซี่ฟันสองซี่ไว้ เล่าสิ่งที่คลินิกนี้ต่างจากที่อื่นในภาพเดียว คือหมอเจ้าของเป็นทันตแพทย์เฉพาะทางโรคเหงือก</p>
+            <div className={styles.markVariants}>
+              <div style={{ background: "#F2CBD4" }}><BrandMark size={60} /></div>
+              <div style={{ background: "#3B1E2A" }}><BrandMark size={60} bg="#F2CBD4" fg="#3B1E2A" /></div>
+              <div style={{ background: "#F4F6F5" }}><BrandMark size={60} bg="#3B1E2A" /></div>
+            </div>
+          </div>
+          <div>
+            <h3 className={`h-display ${styles.h3}`}>สี</h3>
+            <div className={styles.palette}>
+              {palette.map((c) => (
+                <div key={c.hex}>
+                  <div className={styles.swatch} style={{ background: c.hex }} />
+                  <p className={styles.swName}>{c.name}</p>
+                  <p className="muted small">{c.hex} {c.use}</p>
+                </div>
+              ))}
+            </div>
+            <p className="muted small" style={{ marginTop: 10 }}>ไม่ใช้ฟ้า-ขาวแบบคลินิกทั่วไป ชมพูเหงือกบนพื้นขาวผ่านเกณฑ์อ่านง่าย 5.2:1 สีเขียว LINE ใช้เฉพาะไอคอน LINE</p>
+          </div>
+        </div>
+        <div className={styles.typeRow}>
+          <div className={styles.typeCard}>
+            <p className="h-display" style={{ fontSize: "clamp(36px,5vw,60px)", fontWeight: 700, lineHeight: 1.1 }}>ฟันจะดีได้ เหงือกต้องดีก่อน</p>
+            <p className="muted small">Anuphan ตัวหนา สำหรับหัวข้อ</p>
+            <p style={{ fontSize: 20, marginTop: 12 }}>ยื่นบัตรประชาชนใบเดียว คลินิกตรวจสิทธิประกันสังคมให้ก่อนรักษา</p>
+            <p className="muted small">IBM Plex Sans Thai Looped สำหรับเนื้อหา แบบมีหัว คนไข้สูงวัยอ่านง่ายกว่า</p>
+          </div>
+          <div className={styles.voice}>
+            <h3 className={`h-display ${styles.h3}`}>น้ำเสียงในการเขียน</h3>
+            <div className={styles.before}><p className="muted small">ข้อความเดิมบนเว็บ</p><p><s>เราพร้อมดูแล Take care สุขภาพฟันและเหงือกของคุณนะค่ะ</s></p></div>
+            <div className={styles.after}><p className="muted small">ข้อความใหม่</p><p><b>เคสเหงือกได้หมอเหงือก เคสรากฟันได้หมอรากฟัน ไม่ต้องส่งต่อไปที่อื่น</b></p></div>
+          </div>
+        </div>
+        <div className={styles.gumDemo}>
+          <div style={{ height: 32, background: "#fff" }} />
+          <GumLine fill="#F2CBD4" bg="#fff" height={56} />
+          <div style={{ height: 24, background: "#F2CBD4" }} />
+        </div>
+        <p className="muted small" style={{ marginTop: 8 }}>ลายเส้นขอบเหงือก หยักตามแนวเหงือกจริงรอบซี่ฟัน ใช้เป็นรอยต่อระหว่างส่วนของหน้าเท่านั้น</p>
+      </section>
+
+      <section id="line-bot" className={`wrap ${styles.section}`}>
+        <h2 className={`h-display ${styles.h2}`}>LINE OA บอทจองคิวและตอบคำถาม</h2>
+        <p className="lead narrow">ลองกดเมนูในโทรศัพท์ด้านซ้ายได้เลย ด้านขวาคือตัวอย่างคำถามที่คนไข้พิมพ์เป็นภาษาพูด</p>
+        <div className={styles.phones}>
+          <div className={styles.phoneWrap}><LineChat /></div>
+          <div className={`line-phone static ${styles.faqPhone}`}>
+            <div className="line-head"><ClinicAvatar /><div className="line-head-text"><div className="h-display line-name">Dental Care @วังหิน</div><div className="line-sub">ถามได้ด้วยภาษาพูด ไม่ต้องกดเมนู</div></div></div>
+            <div className="line-chat">
+              <div className="bubble me">ใช้ประกันสังคมขูดหินปูนได้มั้ยคะ</div>
+              <div className="bubble bot">ได้ค่ะ นำบัตรประชาชนมาใบเดียว คลินิกตรวจสิทธิให้ก่อน ไม่ต้องสำรองจ่ายในส่วนที่เบิกได้</div>
+              <div className="bubble me">ตัดเหงือกเลเซอร์ 2 ซี่เท่าไหร่</div>
+              <div className="bubble bot">2 ซี่ 4,000 บาทค่ะ ถ้า 3–8 ซี่ราคาเหมา 4,999 บาท ทำโดยหมอหยง ทันตแพทย์เฉพาะทางเหงือก</div>
+              <div className="bubble me">จัดฟันผ่อนได้ไหม</div>
+              <div className="bubble bot">{"ผ่อนกับคลินิก 0% ได้ค่ะ\n3,000 บาท 2 งวดแรก แล้ว 1,500 × 26 งวด\n5,000 บาท 2 งวดแรก แล้ว 1,500 × 22 งวด\n10,000 บาท งวดแรก แล้ว 1,500 × 20 งวด"}</div>
+              <div className="bubble me">ปวดฟันมากเลย แก้มบวมด้วย</div>
+              <div className="bubble bot">อาการปวดและบวมควรให้หมอดูเร็วที่สุดค่ะ พรุ่งนี้ 10:00 ยังมีคิวกับหมอเอ๋ ทันตแพทย์รักษารากฟัน</div>
+              <div className={styles.handoff}>ส่งเรื่องให้เจ้าหน้าที่แล้ว จะโทรกลับเมื่อคลินิกเปิด 10:00</div>
+            </div>
+          </div>
+        </div>
+
+        <h3 className={`h-display ${styles.h3}`} style={{ marginTop: 48 }}>บอททำงานอย่างไร</h3>
+        <div className={styles.flow}>
+          <div className={styles.node}>คนไข้ทัก LINE</div>
+          <div className={styles.arrow} aria-hidden="true" />
+          <div className={`${styles.node} ${styles.nodeDark}`}><b>บอทอ่านข้อความ</b><br />แยกว่าต้องการอะไร</div>
+          <div className={styles.arrow} aria-hidden="true" />
+          <ul className={styles.branches}>
+            <li><span className={styles.node}><b>จอง เลื่อน ยกเลิกนัด</b></span><span className={styles.arrowSm} aria-hidden="true" /><span className={`${styles.node} ${styles.nodeSoft}`}>ตารางหมอจริง เตือนก่อน 1 วัน</span></li>
+            <li><span className={styles.node}><b>ถามราคา สิทธิ เวลาเปิด</b></span><span className={styles.arrowSm} aria-hidden="true" /><span className={`${styles.node} ${styles.nodeSoft}`}>คลังคำตอบที่หมออนุมัติแล้ว</span></li>
+            <li><span className={`${styles.node} ${styles.nodeAlert}`}><b>ปวด บวม เลือดไม่หยุด</b> หรือถามนอกเรื่อง</span><span className={styles.arrowSm} aria-hidden="true" /><span className={`${styles.node} ${styles.nodeGum}`}>ส่งต่อเจ้าหน้าที่ทันที</span></li>
+          </ul>
+        </div>
+        <div className={styles.three}>
+          <div><h4 className="h-display">บอทตอบเองได้</h4><p>ใช้สิทธิประกันสังคมได้ไหม<br />ราคาเลเซอร์เหงือก โปรจัดฟัน 999<br />เวลาเปิด การเดินทาง<br />เตรียมตัวก่อนมาทำฟัน<br />ดูแลตัวเองหลังถอนฟัน<br />เลื่อนหรือยกเลิกนัด</p></div>
+          <div><h4 className="h-display">ต้องได้จากคลินิกก่อนเริ่ม</h4><p>ตารางลงตรวจของหมอแต่ละคน<br />ราคางานที่ให้บอทบอกได้<br />คำตอบที่หมอตรวจและอนุมัติ<br />คนรับเรื่องที่บอทส่งต่อ<br />LINE OA เดิมของคลินิก 1 บัญชี</p></div>
+          <div><h4 className="h-display">บอทจะไม่ทำ</h4><p>ไม่วินิจฉัยอาการแทนหมอ<br />ไม่ยืนยันราคาเคสที่ต้องตรวจก่อน<br />ไม่เก็บข้อมูลสุขภาพเกินที่ใช้นัด<br />อาการเร่งด่วน ส่งต่อคนทันที</p></div>
+        </div>
+      </section>
+
+      <section id="seo" className={`wrap ${styles.section}`}>
+        <h2 className={`h-display ${styles.h2}`}>SEO: เว็บเดิมมีพื้นฐาน แต่ Google อ่านไม่ออกว่าคลินิกทำอะไร</h2>
+        <p className="muted">ตรวจจากเว็บจริง dentalcareatwanghin.com วันที่ 6 พ.ย. 2026</p>
+        <div className={styles.seoGrid}>
+          <div>
+            <h3 className={`h-display ${styles.h3}`}>สถานะตอนนี้</h3>
+            <ul className={styles.audit}>
+              {audit.map((a) => (
+                <li key={a.what}>
+                  <span className={a.ok ? styles.badgeOk : styles.badgeFix}>{a.ok ? "ใช้ได้" : "ต้องแก้"}</span>
+                  <div><p className={styles.auditWhat}>{a.what}</p><p className="muted small">{a.detail}</p></div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className={styles.plan}>
+            <h3 className={`h-display ${styles.h3}`}>แผน Phase 1</h3>
+            <div><h4 className="h-display">ฐานเทคนิค ทำพร้อมเว็บใหม่</h4><p>H1 เดียวต่อหน้า alt ทุกรูป ข้อมูลโครงสร้างแบบ Dentist URL ที่อ่านออก และ redirect 301 จากลิงก์เดิมทุกหน้า เว็บตัวอย่างนี้มีข้อมูลโครงสร้างแล้ว</p></div>
+            <div><h4 className="h-display">Google Maps และรีวิว</h4><p>จัด Google Business Profile ให้ครบ ใช้ชื่อ ที่อยู่ เบอร์ และ LINE ID ชุดเดียวกันทุกช่องทาง บอทส่งลิงก์ขอรีวิวหลังคนไข้มาตามนัด</p></div>
+            <div><h4 className="h-display">หน้าบริการ 6 หน้า + บทความ 4 เรื่อง</h4><p>หนึ่งหน้าต่อหนึ่งเรื่องที่คนค้น เรียบเรียงจากที่หมอหยงเขียนไว้ ให้หมอตรวจก่อนเผยแพร่</p></div>
+            <div><h4 className="h-display">วัดผล</h4><p>Search Console และ GA4 นับการกดจองทาง LINE และการกดโทร รายงานทุกเดือน</p></div>
+          </div>
+        </div>
+        <h3 className={`h-display ${styles.h3}`} style={{ marginTop: 32 }}>คำค้นที่จะทำหน้ารองรับ</h3>
+        <p className="muted small">ชุดตั้งต้นจากบริการจริงของคลินิก ยืนยันปริมาณการค้นด้วย Search Console หลังเปิดเว็บ 4 สัปดาห์</p>
+        <div className={styles.keywords}>{keywords.map((k) => <span key={k}>{k}</span>)}</div>
+      </section>
+
+      <section id="scope" className={styles.scope}>
+        <div className={`wrap ${styles.section}`}>
+          <h2 className={`h-display ${styles.h2}`}>ขอบเขตงาน Phase 1</h2>
+          <div className={styles.cards}>
+            <div><h3 className="h-display">เว็บไซต์ใหม่</h3><ul><li>อัตลักษณ์แบรนด์ เครื่องหมาย สี ตัวอักษร</li><li>หน้าแรกพร้อมโมเดลฟัน 3 มิติ</li><li>หน้าบริการ 6 หน้า ทีมหมอ การเดินทาง</li><li>ย้ายรีวิวและเคสเดิม พร้อม redirect</li></ul><p className="h-display">[ราคา] บาท</p></div>
+            <div><h3 className="h-display">LINE OA บอท</h3><ul><li>Rich menu ตามแบรนด์ใหม่</li><li>จอง เลื่อน ยกเลิกนัดตามตารางหมอ</li><li>ข้อความเตือนก่อนวันนัด 1 วัน</li><li>ตอบคำถามที่หมออนุมัติ 30 เรื่อง</li></ul><p className="h-display">[ราคา] บาท + [ค่าดูแล]/เดือน</p></div>
+            <div><h3 className="h-display">SEO ฐานแรก</h3><ul><li>แก้ 8 จุดจากการตรวจเว็บเดิม</li><li>ข้อมูลโครงสร้างแบบคลินิกทันตกรรม</li><li>จัด Google Business Profile</li><li>บทความ 4 เรื่อง Search Console GA4</li></ul><p className="h-display">[ราคา] บาท</p></div>
+          </div>
+          <ol className={styles.timeline}>
+            <li><b className="h-display">สัปดาห์ 1</b><span>เก็บตารางหมอ ราคา รูปจริง และคำตอบที่หมออนุมัติ</span></li>
+            <li><b className="h-display">สัปดาห์ 2–3</b><span>สร้างเว็บใหม่ ย้ายเนื้อหาเดิม ทำโมเดลฟัน</span></li>
+            <li><b className="h-display">สัปดาห์ 3–4</b><span>ตั้งบอทจองคิวและถาม-ตอบ ทดสอบกับทีมคลินิก</span></li>
+            <li><b className="h-display">สัปดาห์ 5</b><span>เปิดใช้งานจริง ย้ายโดเมน ตั้งค่า SEO และ Google Maps</span></li>
+            <li><b className="h-display">สัปดาห์ 6</b><span>ปรับจากข้อความลูกค้าจริง ส่งรายงานผลแรก</span></li>
+          </ol>
+          <div className={styles.two}>
+            <div><h3 className="h-display">คลินิกช่วยเตรียม</h3><p>ตารางลงตรวจของหมอแต่ละท่าน รูปหมอและรูปคลินิก ราคางานที่ให้บอกได้ เลขใบอนุญาตสถานพยาบาล สิทธิ์แอดมิน LINE OA และโดเมนเดิม</p></div>
+            <div><h3 className="h-display">สิ่งที่จะวัดหลังเปิดใช้</h3><p>จำนวนนัดที่จองผ่าน LINE ต่อสัปดาห์ ข้อความที่บอทตอบเองเทียบกับที่ส่งต่อคน การกดโทรและกดจองจากเว็บ และคำค้นที่ขึ้นหน้าแรกของ Google</p></div>
+          </div>
+          <p className={styles.contact}>ติดต่อ ตอบไว Studio: [ชื่อ] [เบอร์โทร] [อีเมล]</p>
+        </div>
+      </section>
+    </main>
+  );
+}

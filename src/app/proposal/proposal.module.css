@@ -1,0 +1,82 @@
+.page { background: #fff; }
+.top { background: var(--enamel); padding-bottom: 48px; }
+.topRow { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 16px; padding-bottom: 32px; }
+.topRow :global(.btn-primary) { margin-top: 0; }
+.kicker { color: var(--gum); font-weight: 600; }
+.h1 { margin-top: 8px; font-size: clamp(36px, 5vw, 56px); line-height: 1.12; font-weight: 700; }
+.toc { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 8px; }
+.toc a { padding: 8px 16px; border-radius: 999px; background: #fff; color: var(--ink); text-decoration: none; border: 1.5px solid #d9cdd2; }
+.toc a:hover { border-color: var(--gum); }
+
+.section { padding-top: 72px; padding-bottom: 24px; }
+.h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 700; line-height: 1.15; }
+.h3 { font-size: 22px; font-weight: 600; margin-bottom: 12px; }
+
+.brandGrid { margin-top: 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; }
+.markCol { display: flex; flex-direction: column; gap: 20px; }
+.lockup { display: flex; align-items: center; gap: 18px; }
+.markVariants { display: flex; gap: 14px; }
+.markVariants > div { width: 104px; height: 104px; border-radius: 22px; display: flex; align-items: center; justify-content: center; }
+.palette { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.swatch { height: 110px; border-radius: 16px; border: 1px solid #e1e6e4; }
+.swName { margin-top: 8px; font-weight: 600; font-size: 15px; }
+.typeRow { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
+.typeCard { background: var(--enamel); border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 8px; }
+.voice { display: flex; flex-direction: column; gap: 12px; }
+.before { border: 1.5px solid #e6e2e4; border-radius: 20px; padding: 18px 20px; }
+.before s { text-decoration-color: var(--gum); }
+.after { background: var(--gum-soft); border-radius: 20px; padding: 18px 20px; }
+.gumDemo { margin-top: 32px; border-radius: 24px; overflow: hidden; border: 1px solid #e6e2e4; }
+
+.phones { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; }
+.phoneWrap :global(.line-phone) { height: 760px; box-shadow: 0 20px 50px rgba(59, 30, 42, 0.18); }
+.faqPhone { box-shadow: 0 20px 50px rgba(59, 30, 42, 0.18); }
+.handoff { align-self: flex-start; background: var(--gum-mist); color: var(--gum-dark); border-radius: 12px; padding: 8px 12px; font-size: 13px; }
+
+.flow { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.node { display: inline-block; padding: 14px 18px; border-radius: 16px; background: #fff; border: 1.5px solid #d9cdd2; text-align: center; }
+.nodeDark { background: var(--ink); color: #fff; border-color: var(--ink); }
+.nodeSoft { background: var(--gum-soft); border-color: var(--gum-soft); }
+.nodeGum { background: var(--gum); color: #fff; border-color: var(--gum); }
+.nodeAlert { border-color: var(--gum); }
+.arrow, .arrowSm { flex: 0 0 auto; width: 40px; height: 2px; background: #8e7a84; position: relative; }
+.arrowSm { width: 28px; display: inline-block; vertical-align: middle; margin: 0 8px; }
+.arrow::after, .arrowSm::after { content: ""; position: absolute; right: -2px; top: -4px; border-left: 8px solid #8e7a84; border-top: 5px solid transparent; border-bottom: 5px solid transparent; }
+.branches { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.three { margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; line-height: 1.8; }
+.three h4 { font-size: 19px; margin: 0 0 6px; }
+
+.seoGrid { margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 40px; }
+.audit { list-style: none; margin: 0; padding: 0; }
+.audit li { display: flex; gap: 14px; padding: 12px 0; border-bottom: 1px solid #eee9eb; }
+.badgeFix, .badgeOk { flex: 0 0 76px; height: 28px; border-radius: 999px; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+.badgeFix { background: var(--gum); color: #fff; }
+.badgeOk { background: var(--clean); color: #2f5446; }
+.auditWhat { font-weight: 600; }
+.plan { display: flex; flex-direction: column; gap: 14px; }
+.plan > div { background: var(--enamel); border-radius: 22px; padding: 20px 24px; }
+.plan h4 { font-size: 19px; margin: 0 0 4px; }
+.keywords { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px; }
+.keywords span { padding: 8px 16px; border-radius: 999px; background: var(--gum-soft); font-weight: 500; }
+
+.scope { margin-top: 64px; background: var(--ink); color: #fff; padding-bottom: 72px; }
+.cards { margin-top: 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.cards > div { background: #fff; color: var(--ink); border-radius: 26px; padding: 28px; display: flex; flex-direction: column; gap: 10px; }
+.cards h3 { font-size: 24px; }
+.cards ul { margin: 0; padding-left: 20px; }
+.cards p { margin-top: auto; font-size: 24px; font-weight: 700; color: var(--gum); }
+.timeline { margin: 40px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; }
+.timeline li { border-top: 3px solid var(--gum-soft); padding-top: 12px; display: flex; flex-direction: column; gap: 4px; color: #eadde2; }
+.timeline b { color: #fff; font-size: 18px; }
+.two { margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+.two > div { border: 1.5px solid #6b4a58; border-radius: 26px; padding: 24px 28px; }
+.two h3 { font-size: 20px; margin-bottom: 6px; }
+.two p { color: #eadde2; }
+.contact { margin-top: 32px; color: var(--gum-soft); }
+
+@media (max-width: 640px) {
+  .palette { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .markVariants > div { width: 84px; height: 84px; }
+  .phoneWrap, .faqPhone { width: 100%; }
+  .phoneWrap :global(.line-phone) { width: 100%; height: 680px; }
+}

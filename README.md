@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Dental Care @Wanghin — redesign (Phase 1 proposal)
 
-## Getting Started
+Next.js 16 site by ตอบไว Studio: new brand, homepage with an interactive 3D tooth model (three.js), LINE OA booking-bot demo, and the Phase 1 proposal at `/proposal`.
 
-First, run the development server:
+## Run
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | Default | Purpose |
+|---|---|---|
+| `NEXT_PUBLIC_DEMO` | on (anything but `0`) | Shows the "design proposal" banner, sets `noindex`, blocks crawlers in robots.txt |
+| `NEXT_PUBLIC_SITE_URL` | `https://wanghin-web.vercel.app` | Canonical URL, sitemap, Open Graph |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Set `NEXT_PUBLIC_DEMO=0` only when this becomes the clinic's real site.
 
-## Learn More
+## Structure
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/app/page.tsx` — homepage
+- `src/app/proposal/page.tsx` — proposal (brand, LINE bot, SEO audit, scope)
+- `src/components/JawViewer.tsx` — 3D jaw: hover opens the mouth, click a tooth or the gum, drag to rotate 360°
+- `src/components/LineChat.tsx` — LINE booking demo
+- `src/lib/clinic.ts` — clinic data, doctors, services, per-tooth info
+- `public/models/jaw.glb` — jaw model (Blender, KHR_mesh_quantization)
