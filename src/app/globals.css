@@ -276,7 +276,7 @@ button.btn-primary, button.btn-white { border: 0; font: inherit; font-weight: 60
 .vdetail-main { flex: 999 1 520px; min-width: 0; max-width: 720px; }
 .vdetail-title { margin-top: 6px; font-size: clamp(32px, 4vw, 46px); font-weight: 700; line-height: 1.2; }
 .vplayer { width: 100%; aspect-ratio: 9 / 16; border: 0; border-radius: 22px; background: #000; display: block; }
-.vplayer-btn { all: unset; cursor: pointer; display: block; position: relative; border-radius: 22px; }
+.vplayer-btn { all: unset; cursor: pointer; display: block; width: 100%; box-sizing: border-box; position: relative; border-radius: 22px; }
 .vplayer-btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 .vplayer-btn .vcover { border-radius: 22px; }
 .vplayer-hint { position: absolute; z-index: 3; left: 50%; top: 50%; transform: translate(-50%, -50%); background: rgba(28, 12, 20, 0.9); font-weight: 600; box-shadow: 0 4px 16px rgba(28, 12, 20, 0.4); color: #fff; font-size: 14px; padding: 8px 14px; border-radius: 999px; white-space: nowrap; }
@@ -309,8 +309,16 @@ button.btn-primary, button.btn-white { border: 0; font: inherit; font-weight: 60
   .vpinned-card .vcover { flex-basis: 112px; }
   .vgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 14px; }
   .vcover-title { font-size: 17px; }
-  .vdetail-side { max-width: none; }
-  .vdetail-side .vplayer, .vdetail-side .vplayer-btn { max-width: 300px; margin: 0 auto; }
-  .vdetail-sticky { position: static; }
+  .vdetail { gap: 28px; }
+  .vdetail-side { max-width: none; flex-basis: 100%; }
+  .vdetail-sticky { position: static; display: grid; grid-template-columns: 132px minmax(0, 1fr); grid-template-areas: "player stats" "player tiktok" "book book"; gap: 10px 16px; align-items: start; }
+  .vdetail-sticky > .vplayer, .vdetail-sticky > .vplayer-btn { grid-area: player; width: 100%; }
+  .vdetail-stats { grid-area: stats; align-self: end; }
+  .vdetail-sticky > .btn-outline { grid-area: tiktok; min-height: 44px; padding: 8px 14px; font-size: 15px; }
+  .vbook { grid-area: book; }
+  .vplayer-btn .vcover.photo.big .vcover-foot { left: 10px; bottom: 10px; }
+  .vplayer-btn .vcover.photo.big .vplay { width: 36px; height: 36px; }
+  .vplayer-btn .vcover.photo.big .vcover-meta { font-size: 13px; }
+  .vplayer-hint { font-size: 12px; padding: 6px 10px; white-space: normal; text-align: center; width: max-content; max-width: 86%; }
   .vcta { padding: 26px; }
 }

@@ -15,8 +15,11 @@ export default function VideoBrowser({ clips, topics }: { clips: Clip[]; topics:
     return list.sort((a, b) => (sort === "top" ? b.likes - a.likes : b.date.localeCompare(a.date)));
   }, [clips, topic, sort]);
 
-  // Only offer topics that have at least one clip on the site.
-  const present = topics.filter((t) => clips.some((c) => c.topic === t.name));
+  // Only topics with clips on the site, counted from the clips actually shown here.
+  const present = topics
+    .map((t) => ({ name: t.name, count: clips.filter((c) => c.topic === t.name).length }))
+    .filter((t) => t.count > 0)
+    .sort((a, b) => b.count - a.count);
 
   return (
     <>
@@ -24,7 +27,7 @@ export default function VideoBrowser({ clips, topics }: { clips: Clip[]; topics:
         <div role="group" aria-label="เลือกหัวข้อ" className="vb-chips">
           {[{ name: ALL, count: clips.length }, ...present].map((t) => (
             <button key={t.name} type="button" aria-pressed={topic === t.name} className="vb-chip" onClick={() => setTopic(t.name)}>
-              {t.name} <span>{t.name === ALL ? clips.length : t.count}</span>
+              {t.name} <span>{t.count}</span>
             </button>
           ))}
         </div>
@@ -33,11 +36,6 @@ export default function VideoBrowser({ clips, topics }: { clips: Clip[]; topics:
           <button type="button" aria-pressed={sort === "top"} onClick={() => setSort("top")}>ยอดนิยม</button>
         </div>
       </div>
-      {topic !== ALL && (
-        <p className="muted small vb-note">
-          แสดง {shown.length} คลิปบนเว็บ จากทั้งหมด {present.find((t) => t.name === topic)?.count} คลิปในหัวข้อนี้บน TikTok
-        </p>
-      )}
       <div className="vgrid">
         {shown.map((c) => (
           <VideoCard key={c.slug} clip={c} />

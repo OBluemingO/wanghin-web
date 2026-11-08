@@ -35,7 +35,7 @@ export default function VideosPage() {
               <dl className="vstats">
                 <div><dt>ผู้ติดตาม</dt><dd>{TIKTOK.followers}</dd></div>
                 <div><dt>ไลก์</dt><dd>{TIKTOK.likes}</dd></div>
-                <div><dt>หัวข้อ</dt><dd>{topics.length}</dd></div>
+                <div><dt>คลิปบนเว็บ</dt><dd>{clips.length}</dd></div>
               </dl>
             </div>
             <div className="vhero-actions">

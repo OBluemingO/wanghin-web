@@ -73,7 +73,7 @@ export default function ClinicMap() {
 
     const io = new IntersectionObserver((entries) => {
       if (entries.some((e) => e.isIntersecting)) { io.disconnect(); start(); }
-    }, { rootMargin: "300px" });
+    }, { rootMargin: "150px" });
     io.observe(el);
 
     return () => { cancelled = true; io.disconnect(); map?.remove(); };

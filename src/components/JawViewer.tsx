@@ -40,9 +40,12 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
     const canvas = canvasRef.current;
     if (!canvas) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Phones and tablets: lower render resolution and simpler materials. The GPU is shared with
+    // page scrolling, so this is what keeps the rest of the page smooth.
+    const light = window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 768;
 
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: light ? "low-power" : "default" });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, light ? 1.5 : 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.0;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -103,7 +106,9 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
 
       const gumGeo = geo("gum");
       [[lower, GUM_LOWER], [upperRoot, GUM_UPPER]].forEach(([parent, id]) => {
-        const mat = new THREE.MeshPhysicalMaterial({ color: GUM.clone(), roughness: 0.42, clearcoat: 0.45, clearcoatRoughness: 0.2, sheen: 0.5, sheenColor: new THREE.Color("#ffc6cf"), sheenRoughness: 0.5 });
+        const mat = light
+          ? new THREE.MeshStandardMaterial({ color: GUM.clone(), roughness: 0.38 })
+          : new THREE.MeshPhysicalMaterial({ color: GUM.clone(), roughness: 0.42, clearcoat: 0.45, clearcoatRoughness: 0.2, sheen: 0.5, sheenColor: new THREE.Color("#ffc6cf"), sheenRoughness: 0.5 });
         const m = new THREE.Mesh(gumGeo, mat);
         m.userData.id = id;
         (parent as THREE.Group).add(m);
@@ -115,7 +120,9 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
         const holder = new THREE.Group();
         holder.position.set(t.u, -(ZF - K * t.u * t.u), 0);
         holder.rotation.z = Math.atan2(2 * K * t.u, 1);
-        const mat = new THREE.MeshPhysicalMaterial({ color: ENAMEL.clone(), roughness: 0.24, clearcoat: 0.9, clearcoatRoughness: 0.07, ior: 1.55 });
+        const mat = light
+          ? new THREE.MeshStandardMaterial({ color: ENAMEL.clone(), roughness: 0.2 })
+          : new THREE.MeshPhysicalMaterial({ color: ENAMEL.clone(), roughness: 0.24, clearcoat: 0.9, clearcoatRoughness: 0.07, ior: 1.55 });
         const m = new THREE.Mesh(geo("tooth" + t.idx), mat);
         m.userData.id = t.id;
         holder.add(m);
@@ -178,8 +185,13 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
 
     const clock = new THREE.Clock();
     let raf = 0;
+    let onScreen = false;
+    let lastKey = "";
+    let skip = false;
     const tmp = new THREE.Color();
     const loop = () => {
+      raf = 0;
+      if (!onScreen || document.hidden) return; // stop entirely while scrolled away or in a background tab
       const dt = Math.min(0.05, clock.getDelta());
       const wantOpen = (state.hover && !state.dragging) || state.touchOpen || ctl.current.keepOpen;
       state.open += ((wantOpen ? 1 : 0) - state.open) * (reduce ? 1 : Math.min(1, dt * 7));
@@ -201,7 +213,7 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
       const gumHov = state.hoverId === GUM_LOWER || state.hoverId === GUM_UPPER;
       gumMeshes.forEach((m) => {
         const a = gumSel ? 0.45 : gumHov ? 0.2 : 0;
-        const mat = m.material as THREE.MeshPhysicalMaterial;
+        const mat = m.material as THREE.MeshStandardMaterial;
         mat.color.copy(tmp.copy(GUM).lerp(PINK, a));
       });
       toothMeshes.forEach((m, id) => {
@@ -210,18 +222,31 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
         lift.set(id, cur);
         m.position.z = cur * 0.1;
         const a = sel === id ? 0.6 : state.hoverId === id ? 0.28 : 0;
-        const mat = m.material as THREE.MeshPhysicalMaterial;
+        const mat = m.material as THREE.MeshStandardMaterial;
         mat.color.copy(tmp.copy(ENAMEL).lerp(PINK, a));
       });
 
-      renderer.render(scene, camera);
+      // Draw only when something on screen changed. While it is just spinning on a phone, 30 fps is plenty.
+      const busy = state.dragging || ctl.current.faceGoal || Math.abs((wantOpen ? 1 : 0) - state.open) > 0.002 || [...lift.values()].some((v, i) => Math.abs(v - (sel === [...lift.keys()][i] ? 1 : 0)) > 0.002);
+      const key = `${state.yaw.toFixed(4)}|${state.pitch.toFixed(4)}|${state.open.toFixed(3)}|${sel}|${state.hoverId}|${toothMeshes.size}`;
+      skip = light && !busy && !skip;
+      if (key !== lastKey && !(skip && state.spin)) {
+        renderer.render(scene, camera);
+        lastKey = key;
+      }
       raf = requestAnimationFrame(loop);
     };
-    raf = requestAnimationFrame(loop);
+    const start = () => { if (!raf && onScreen && !document.hidden) { clock.getDelta(); raf = requestAnimationFrame(loop); } };
+    const io = new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; start(); }, { rootMargin: "100px" });
+    io.observe(canvas);
+    const onVis = () => start();
+    document.addEventListener("visibilitychange", onVis);
 
     return () => {
       disposed = true;
       cancelAnimationFrame(raf);
+      io.disconnect();
+      document.removeEventListener("visibilitychange", onVis);
       ro.disconnect();
       canvas.removeEventListener("pointerdown", onDown);
       canvas.removeEventListener("pointermove", onMove);
