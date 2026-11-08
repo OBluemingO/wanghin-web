@@ -1,6 +1,6 @@
 # Dental Care @Wanghin — redesign (Phase 1 proposal)
 
-Next.js 16 site by ตอบไว Studio: new brand, homepage with an interactive 3D tooth model (three.js), LINE OA booking-bot demo, and the Phase 1 proposal at `/proposal`.
+Next.js 16 site by Phayuphat Trilao: new brand, homepage with an interactive 3D tooth model (three.js), LINE OA booking-bot demo, and the proposal at `/proposal`.
 
 ## Run
 

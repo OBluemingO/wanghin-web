@@ -5,7 +5,7 @@ import { BrandMark, GumLine } from "@/components/Icons";
 import styles from "./proposal.module.css";
 
 export const metadata: Metadata = {
-  title: "ข้อเสนอจาก ตอบไว Studio",
+  title: "ข้อเสนอจาก Phayuphat Trilao",
   description: "อัตลักษณ์แบรนด์ เว็บไซต์ใหม่ LINE OA บอทจองคิว และแผน SEO สำหรับ Dental Care @Wanghin",
   robots: { index: false, follow: false },
 };
@@ -76,7 +76,7 @@ export default function Proposal() {
           <Link href="/" className="btn-primary">ดูเว็บตัวอย่าง</Link>
         </div>
         <div className="wrap">
-          <p className={styles.kicker}>ข้อเสนอจาก ตอบไว Studio สำหรับ Dental Care @วังหิน</p>
+          <p className={styles.kicker}>ข้อเสนอจาก Phayuphat Trilao สำหรับ Dental Care @วังหิน</p>
           <h1 className={`h-display ${styles.h1}`}>ใช้เวลา 6 สัปดาห์<br />ได้เว็บใหม่ บอทจองคิว และฐาน SEO</h1>
           <nav className={styles.toc} aria-label="ส่วนของข้อเสนอ">
             <a href="#demo">เว็บตัวอย่าง</a><a href="#brand">อัตลักษณ์แบรนด์</a><a href="#line-bot">LINE บอท</a><a href="#seo">SEO</a><a href="#scope">ราคาและขอบเขตงาน</a><a href="#changes">เพิ่มหรือปรับงาน</a>
@@ -328,7 +328,7 @@ export default function Proposal() {
         <div className={styles.talk}>
           <div>
             <p className={`h-display ${styles.talkTitle}`}>คุยรายละเอียดหรือปรับ requirement</p>
-            <p className="muted">Phayuphat Trilao · ตอบไว Studio</p>
+            <p className="muted">Phayuphat Trilao</p>
           </div>
           <div className={styles.talkBtns}>
             <a href="tel:+66825914037" className="btn-primary">โทร 082-591-4037</a>
