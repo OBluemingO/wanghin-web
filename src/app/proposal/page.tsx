@@ -5,7 +5,7 @@ import { BrandMark, GumLine } from "@/components/Icons";
 import styles from "./proposal.module.css";
 
 export const metadata: Metadata = {
-  title: "ข้อเสนอ Phase 1 จาก ตอบไว Studio",
+  title: "ข้อเสนอจาก ตอบไว Studio",
   description: "อัตลักษณ์แบรนด์ เว็บไซต์ใหม่ LINE OA บอทจองคิว และแผน SEO สำหรับ Dental Care @Wanghin",
   robots: { index: false, follow: false },
 };
@@ -68,7 +68,7 @@ export default function Proposal() {
         </div>
         <div className="wrap">
           <p className={styles.kicker}>ข้อเสนอจาก ตอบไว Studio สำหรับ Dental Care @วังหิน</p>
-          <h1 className={`h-display ${styles.h1}`}>Phase 1 ใช้เวลา 6 สัปดาห์<br />ได้เว็บใหม่ บอทจองคิว และฐาน SEO</h1>
+          <h1 className={`h-display ${styles.h1}`}>ใช้เวลา 6 สัปดาห์<br />ได้เว็บใหม่ บอทจองคิว และฐาน SEO</h1>
           <nav className={styles.toc} aria-label="ส่วนของข้อเสนอ">
             <a href="#demo">เว็บตัวอย่าง</a><a href="#brand">อัตลักษณ์แบรนด์</a><a href="#line-bot">LINE บอท</a><a href="#seo">SEO</a><a href="#scope">ราคาและขอบเขตงาน</a>
           </nav>
@@ -196,7 +196,7 @@ export default function Proposal() {
             </ul>
           </div>
           <div className={styles.plan}>
-            <h3 className={`h-display ${styles.h3}`}>แผน Phase 1</h3>
+            <h3 className={`h-display ${styles.h3}`}>แผนที่จะทำ</h3>
             <div><h4 className="h-display">ฐานเทคนิค ทำพร้อมเว็บใหม่</h4><p>H1 เดียวต่อหน้า alt ทุกรูป ข้อมูลโครงสร้างแบบ Dentist URL ที่อ่านออก และ redirect 301 จากลิงก์เดิมทุกหน้า เว็บตัวอย่างนี้มีข้อมูลโครงสร้างแล้ว</p></div>
             <div><h4 className="h-display">Google Maps และรีวิว</h4><p>จัด Google Business Profile ให้ครบ ใช้ชื่อ ที่อยู่ เบอร์ และ LINE ID ชุดเดียวกันทุกช่องทาง บอทส่งลิงก์ขอรีวิวหลังคนไข้มาตามนัด</p></div>
             <div><h4 className="h-display">หน้าบริการ 6 หน้า + บทความ 4 เรื่อง</h4><p>หนึ่งหน้าต่อหนึ่งเรื่องที่คนค้น เรียบเรียงจากที่หมอหยงเขียนไว้ ให้หมอตรวจก่อนเผยแพร่</p></div>
@@ -210,7 +210,7 @@ export default function Proposal() {
 
       <section id="scope" className={styles.scope}>
         <div className={`wrap ${styles.section}`}>
-          <h2 className={`h-display ${styles.h2}`}>ขอบเขตงานและราคา Phase 1</h2>
+          <h2 className={`h-display ${styles.h2}`}>ขอบเขตงานและราคา</h2>
           <p className={styles.scopeLead}>ราคาเป็นเงินบาท จ่ายครั้งเดียว ทุกงานเป็นของคลินิกทั้งหมด รวมโค้ดและบัญชีต่างๆ</p>
 
           <div className={styles.priceTable} role="table" aria-label="ราคางานแต่ละส่วน">
@@ -233,7 +233,7 @@ export default function Proposal() {
             <div>
               <p className={styles.bundleKicker}>ราคาพิเศษสำหรับคลินิกแรกที่ร่วมงานกับเรา</p>
               <p className={`h-display ${styles.bundlePrice}`}>{baht(BUNDLE)}</p>
-              <p>ได้ครบทั้ง Phase 1 ลดจากราคาแยกรายการ {baht(listTotal - BUNDLE)} บาท</p>
+              <p>ได้ครบทุกส่วน ลดจากราคาแยกรายการ {baht(listTotal - BUNDLE)} บาท</p>
             </div>
             <ul>
               <li>แลกกับการให้เราใช้งานนี้เป็นผลงานตัวอย่าง พร้อมรีวิวสั้นๆ จากคลินิกหลังเปิดใช้งาน</li>
