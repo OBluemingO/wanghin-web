@@ -17,13 +17,13 @@ export const clinic = {
   hours: "ทุกวัน 10:00–19:00 น.",
 };
 
-export type Doctor = { nick: string; full: string; role: string };
+export type Doctor = { nick: string; full: string; role: string; photo?: string };
 export const doctors: Doctor[] = [
-  { nick: "หมอหยง", full: "ทพญ.สุพรรัตน์ สกุลศักดิ์ศรี", role: "โรคเหงือก" },
-  { nick: "หมอพริ้ม", full: "ทพญ.ภัทริกา โพธิทัต", role: "โรคเหงือก" },
-  { nick: "หมอเอ๋", full: "ทพญ.ภัทร์ศรี อัสดรมิ่งมิตร", role: "รักษารากฟัน" },
-  { nick: "ทพ.พชร", full: "ทพ.พชร อภิธนังศิริ", role: "ใส่ฟันและรากเทียม" },
-  { nick: "หมอไน้ซ์", full: "[ชื่อเต็ม]", role: "อุดฟันเพื่อความสวยงาม" },
+  { nick: "หมอหยง", full: "ทพญ.สุพรรัตน์ สกุลศักดิ์ศรี", role: "โรคเหงือก", photo: "https://www.dentalcareatwanghin.com/images/ready-template/crop-1730644978703.jpg" },
+  { nick: "หมอพริ้ม", full: "ทพญ.ภัทริกา โพธิทัต", role: "โรคเหงือก", photo: "https://www.dentalcareatwanghin.com/images/ready-template/crop-1730645575360.jpg" },
+  { nick: "หมอเอ๋", full: "ทพญ.ภัทร์ศรี อัสดรมิ่งมิตร", role: "รักษารากฟัน", photo: "https://www.dentalcareatwanghin.com/images/ready-template/crop-1730645116500.jpg" },
+  { nick: "ทพ.พชร", full: "ทพ.พชร อภิธนังศิริ", role: "ใส่ฟันและรากเทียม", photo: "https://www.dentalcareatwanghin.com/images/ready-template/crop-1730645226375.jpg" },
+  { nick: "หมอไน้ซ์", full: "[ชื่อเต็ม]", role: "อุดฟันเพื่อความสวยงาม", photo: "https://www.dentalcareatwanghin.com/images/ready-template/crop-1730645616034.jpg" },
 ];
 
 export type Service = { part: string; items: string; price: string; who: string; dot: string; featured?: boolean };

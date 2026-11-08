@@ -93,7 +93,8 @@ h1, h2, h3, p { margin: 0; }
 
 .doctor-grid { margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
 .doctor { margin: 0; }
-.doctor-photo { aspect-ratio: 4 / 5; border-radius: 120px 120px 20px 20px; background: var(--clean); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 16px; font-size: 13px; color: #5f6b67; }
+.doctor-photo { position: relative; overflow: hidden; aspect-ratio: 4 / 5; border-radius: 120px 120px 20px 20px; background: var(--clean); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 16px; font-size: 13px; color: #5f6b67; }
+.doctor-photo img { object-fit: cover; object-position: center 20%; }
 .doctor figcaption { margin-top: 14px; }
 .doctor-role { font-size: 14px; color: var(--gum); font-weight: 600; }
 .doctor-nick { margin-top: 2px; font-size: 20px; font-weight: 600; }

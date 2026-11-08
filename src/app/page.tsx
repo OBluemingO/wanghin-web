@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Hero from "@/components/Hero";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { GumLine } from "@/components/Icons";
@@ -49,7 +50,13 @@ export default function Home() {
           <div className="doctor-grid">
             {doctors.map((d) => (
               <figure key={d.nick} className="doctor">
-                <div className="doctor-photo">รูปจริงของ{d.nick}</div>
+                <div className="doctor-photo">
+                  {d.photo ? (
+                    <Image src={d.photo} alt={`${d.nick} ทันตแพทย์ด้าน${d.role}`} fill sizes="(max-width: 640px) 50vw, 240px" />
+                  ) : (
+                    <span>รูปจริงของ{d.nick}</span>
+                  )}
+                </div>
                 <figcaption>
                   <p className="doctor-role">{d.role}</p>
                   <p className="h-display doctor-nick">{d.nick}</p>
