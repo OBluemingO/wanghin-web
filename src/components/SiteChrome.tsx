@@ -16,6 +16,7 @@ export function SiteHeader() {
         <nav aria-label="เมนูหลัก" className="main-nav">
           <Link href="/#services">บริการและราคา</Link>
           <Link href="/#doctors">ทีมหมอ</Link>
+          <Link href="/videos">คลิปหมอหยง</Link>
           <Link href="/#reviews">รีวิว</Link>
           <Link href="/#visit">การเดินทาง</Link>
         </nav>

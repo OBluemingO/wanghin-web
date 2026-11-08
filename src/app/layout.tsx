@@ -12,6 +12,7 @@ import "@fontsource/ibm-plex-sans-thai-looped/latin-600.css";
 import "./globals.css";
 import { clinic, DEMO, SITE_URL } from "@/lib/clinic";
 import DemoBanner from "@/components/DemoBanner";
+import LineDemoModal from "@/components/LineDemoModal";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -77,6 +78,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }} />
         {DEMO && <DemoBanner />}
         {children}
+        <LineDemoModal />
       </body>
     </html>
   );

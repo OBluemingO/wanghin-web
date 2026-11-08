@@ -1,9 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import dynamic from "next/dynamic";
 import { infoFor, GUM_LOWER } from "@/lib/clinic";
-import LineChat from "./LineChat";
 import { LineIcon } from "./Icons";
 
 const JawViewer = dynamic(() => import("./JawViewer"), { ssr: false, loading: () => <div className="jaw-canvas" aria-hidden="true" /> });
@@ -12,7 +11,6 @@ export default function Hero() {
   const [sel, setSel] = useState(0);
   const [faceToken, setFaceToken] = useState(0);
   const [openToken, setOpenToken] = useState(0);
-  const [demo, setDemo] = useState(false);
   const info = infoFor(sel);
 
   const quick = (id: number) => {
@@ -21,22 +19,6 @@ export default function Hero() {
     if (id !== GUM_LOWER) setOpenToken((n) => n + 1);
   };
   const onSelect = useCallback((id: number) => setSel(id), []);
-
-  useEffect(() => {
-    if (!demo) return;
-    const esc = (e: KeyboardEvent) => e.key === "Escape" && setDemo(false);
-    window.addEventListener("keydown", esc);
-    return () => window.removeEventListener("keydown", esc);
-  }, [demo]);
-
-  useEffect(() => {
-    const open = (e: Event) => {
-      const a = (e.target as HTMLElement).closest("[data-line-demo]");
-      if (a) { e.preventDefault(); setDemo(true); }
-    };
-    document.addEventListener("click", open);
-    return () => document.removeEventListener("click", open);
-  }, []);
 
   return (
     <section id="top" className="hero">
@@ -70,13 +52,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {demo && (
-        <div className="modal" onClick={(e) => e.target === e.currentTarget && setDemo(false)}>
-          <div role="dialog" aria-modal="true" aria-label="ตัวอย่างบอท LINE จองคิว">
-            <LineChat onClose={() => setDemo(false)} />
-          </div>
-        </div>
-      )}
     </section>
   );
 }

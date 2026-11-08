@@ -2,7 +2,10 @@ import Image from "next/image";
 import Hero from "@/components/Hero";
 import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { GumLine } from "@/components/Icons";
+import Link from "next/link";
+import { VideoCard } from "@/components/VideoCard";
 import { clinic, doctors, reviews, services } from "@/lib/clinic";
+import { TIKTOK, clips } from "@/lib/videos";
 
 export default function Home() {
   return (
@@ -64,6 +67,19 @@ export default function Home() {
                 </figcaption>
               </figure>
             ))}
+          </div>
+        </section>
+
+        <section id="videos" className="wrap section">
+          <div className="vsection-head">
+            <div>
+              <h2 className="h-display section-title">หมอหยงตอบเรื่องเหงือกบน TikTok</h2>
+              <p className="lead narrow">{TIKTOK.followers} คนติดตามคลิปความรู้เรื่องเหงือกและฟันจากหมอหยง ดูคลิปที่คนดูมากที่สุดได้ที่นี่</p>
+            </div>
+            <Link href="/videos" className="btn-primary">ดูคลิปทั้งหมด</Link>
+          </div>
+          <div className="vgrid vgrid-teaser">
+            {clips.filter((c) => c.pinned).map((c) => <VideoCard key={c.slug} clip={c} />)}
           </div>
         </section>
 
