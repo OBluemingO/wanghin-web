@@ -15,6 +15,10 @@ export const clinic = {
   city: "กรุงเทพมหานคร",
   postalCode: "10230",
   hours: "ทุกวัน 10:00–19:00 น.",
+  /** From the clinic's Google Maps listing. */
+  geo: { lat: 13.8243743, lng: 100.5905608 },
+  googleMapsUrl: "https://maps.google.com/?cid=2010007768276827201",
+  directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=13.8243743,100.5905608",
 };
 
 export type Doctor = { nick: string; full: string; role: string; photo?: string };

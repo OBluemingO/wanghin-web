@@ -4,6 +4,7 @@ import { SiteFooter, SiteHeader } from "@/components/SiteChrome";
 import { GumLine } from "@/components/Icons";
 import Link from "next/link";
 import { VideoCard } from "@/components/VideoCard";
+import ClinicMap from "@/components/ClinicMap";
 import { clinic, doctors, reviews, services } from "@/lib/clinic";
 import { TIKTOK, clips } from "@/lib/videos";
 
@@ -121,7 +122,7 @@ export default function Home() {
                 <dt>LINE</dt><dd>{clinic.line}</dd>
               </dl>
             </div>
-            <div className="map-slot" role="img" aria-label="พื้นที่แผนที่ Google Maps ของคลินิก">ฝังแผนที่ Google Maps ตรงนี้</div>
+            <ClinicMap />
           </div>
         </section>
       </main>

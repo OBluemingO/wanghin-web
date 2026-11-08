@@ -51,6 +51,8 @@ const jsonLd = {
     postalCode: clinic.postalCode,
     addressCountry: "TH",
   },
+  geo: { "@type": "GeoCoordinates", latitude: clinic.geo.lat, longitude: clinic.geo.lng },
+  hasMap: clinic.googleMapsUrl,
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
