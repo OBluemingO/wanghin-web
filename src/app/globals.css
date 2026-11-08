@@ -297,6 +297,9 @@ button.btn-primary, button.btn-white { border: 0; font: inherit; font-weight: 60
 .vprose p { margin-top: 12px; font-size: 18px; line-height: 1.75; }
 .vasked { margin: 14px 0 12px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
 .vasked li { align-self: flex-start; background: #fff; border-radius: 18px 18px 18px 4px; padding: 12px 18px; }
+.vsearches { margin: 14px 0 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+.vsearches li { background: var(--gum-soft); border-radius: 999px; padding: 6px 14px; font-size: 15px; }
+.vnote { margin-top: 28px; }
 .vdraft { margin-top: 32px; padding: 12px 16px; border: 1.5px dashed var(--gum); border-radius: 14px; color: var(--gum-dark); }
 
 @media (max-width: 640px) {

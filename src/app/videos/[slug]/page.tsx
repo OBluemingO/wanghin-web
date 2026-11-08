@@ -83,11 +83,19 @@ export default async function VideoPage({ params }: PageProps<"/videos/[slug]">)
                     {s.p.map((p) => <p key={p}>{p}</p>)}
                   </section>
                 ))}
-                <section className="vprose">
-                  <h2 className="h-display">คนดูถามต่อในคอมเมนต์</h2>
-                  <ul className="vasked">{a.askedInComments.map((q) => <li key={q}>{q}</li>)}</ul>
-                  <p className="muted small">มีคำถามแบบนี้ ส่งรูปฟันมาให้หมอดูทาง LINE ได้ ทุกเคสต่างกัน หมอต้องเห็นฟันก่อนจึงตอบได้ตรง</p>
-                </section>
+                {a.askedInComments?.length ? (
+                  <section className="vprose">
+                    <h2 className="h-display">คำถามจากคอมเมนต์</h2>
+                    <ul className="vasked">{a.askedInComments.map((q) => <li key={q}>{q}</li>)}</ul>
+                  </section>
+                ) : null}
+                {a.searches?.length ? (
+                  <section className="vprose">
+                    <h2 className="h-display">คนหาคลิปนี้ด้วยคำว่า</h2>
+                    <ul className="vsearches">{a.searches.map((q) => <li key={q}>{q}</li>)}</ul>
+                  </section>
+                ) : null}
+                <p className="muted small vnote">ทุกเคสต่างกัน ถ้ามีอาการแบบนี้ ส่งรูปฟันให้หมอดูทาง LINE หรือจองคิวตรวจที่คลินิก หมอต้องเห็นฟันก่อนจึงแนะนำได้ตรง</p>
                 {DEMO && <p className="vdraft small">ร่างบทความตัวอย่าง เรียบเรียงจากคลิป หมอหยงต้องตรวจก่อนเผยแพร่จริง</p>}
               </>
             ) : (

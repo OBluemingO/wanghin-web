@@ -1,3 +1,5 @@
+import { articles } from "./articles";
+
 /**
  * Dr. Yong's TikTok clips (@dr.yongka). Titles, captions, likes and dates come from the public
  * clips (counts as seen 9 Nov 2026 and will drift). "pinned" marks the three most-liked clips
@@ -49,7 +51,9 @@ export type Clip = {
     minutes: number;
     summary: string[];
     sections: Section[];
-    askedInComments: string[];
+    askedInComments?: string[];
+    /** TikTok's suggested searches for the clip: what people type to find it. */
+    searches?: string[];
     cta: { label: string; who: string };
   };
 };
@@ -63,12 +67,12 @@ export const clips: Clip[] = [
   {
     slug: "gum-recession-graft", id: "7298956137880210694", title: "เหงือกร่น ปลูกเหงือกได้ไหม",
     caption: "เคสเหงือกร่น เคสนี้ปลูกเหงือกเพื่อการรักษา", topic: "ปลูกเหงือก เหงือกร่น",
-    likes: 3019, comments: 71, date: "2023-11-08", pinned: true,
+    likes: 3019, comments: 71, duration: "2:15", date: "2023-11-08", pinned: true,
   },
   {
     slug: "bone-loss-50", id: "7302430484766821638", title: "กระดูกเบ้าฟันละลายเกิน 50% ยังเก็บฟันได้ไหม",
     caption: "กระดูกเบ้าฟันละลายเกิน 50% พบแพทย์เฉพาะทางก่อนว่าเก็บได้มั้ยนะคะ", topic: "โรคเหงือก โรคปริทันต์",
-    likes: 1390, comments: 85, date: "2023-11-17", pinned: true,
+    likes: 1390, comments: 85, duration: "1:42", date: "2023-11-17", pinned: true,
   },
   {
     slug: "retainer-timing", id: "7203320839834520858", title: "ถอดเหล็กจัดฟัน พิมพ์รีเทนเนอร์ตอนไหนดี",
@@ -78,7 +82,7 @@ export const clips: Clip[] = [
   {
     slug: "subgingival-scaling", id: "7358453792624446727", title: "ขูดหินปูนใต้เหงือก ต้องใช้เครื่องมือพิเศษ",
     caption: "ขูดหินปูนใต้เหงือก ต้องใช้เครื่องมือพิเศษ และต้องตรวจให้ละเอียด เพื่อให้เกลี้ยงเรียบร้อย", topic: "โรคเหงือก โรคปริทันต์",
-    likes: 475, comments: 23, date: "2024-04-16",
+    likes: 475, comments: 23, duration: "1:24", date: "2024-04-16",
   },
   {
     slug: "last-molar-extraction", id: "7295770469314120965", title: "ถอนฟันกรามซี่สุดท้าย ต้องใส่ฟันปลอมไหม",
@@ -123,12 +127,12 @@ export const clips: Clip[] = [
   {
     slug: "gum-abscess", id: "7261991445022690566", title: "ตุ่มหนองที่เหงือก มาจากฟันซี่ไหน",
     caption: "ตุ่มหนองที่เหงือก มาจากฟันซี่ไหน ใช้วิธีนี้", topic: "โรคเหงือก โรคปริทันต์",
-    likes: 383, comments: 23, duration: "0:49", date: "2023-07-31",
+    likes: 383, comments: 23, duration: "0:48", date: "2023-07-31",
   },
   {
     slug: "bony-growth", id: "7220068101344234778", title: "เหงือกปูด กระดูกงอก ใช่มะเร็งไหม",
     caption: "เหงือกปูด กระดูกงอก ใช่มะเร็งหรือเปล่า", topic: "ก้อนเนื้อเหงือก",
-    likes: 326, comments: 29, date: "2023-04-09",
+    likes: 326, comments: 29, duration: "0:55", date: "2023-04-09",
   },
   {
     slug: "crowded-teeth", id: "7416352443149110546", title: "แก้ฟันซ้อนเก แบบง่ายๆ",
@@ -138,12 +142,15 @@ export const clips: Clip[] = [
   {
     slug: "laser-gum-contouring", id: "7332488945868999943", title: "ตัดเหงือกด้วยเลเซอร์ ยิ้มเห็นเหงือกน้อยลง",
     caption: "เหงือกดูเป็นธรรมชาติ กลมกลืน ยิ้มสวยขึ้นด้วยการตัดเหงือกด้วยเลเซอร์", topic: "ตัดเหงือกด้วยเลเซอร์",
-    likes: 101, date: "2024-02-06",
+    likes: 101, duration: "1:52", date: "2024-02-06",
   },
 ];
 
 // Every clip on the site has its cover saved under public/thumbs/<slug>.webp.
-for (const c of clips) c.thumb = `/thumbs/${c.slug}.webp`;
+for (const c of clips) {
+  c.thumb = `/thumbs/${c.slug}.webp`;
+  c.article ??= articles[c.slug];
+}
 
 export const toneOf = (topic: string): Tone => topics.find((t) => t.name === topic)?.tone ?? "mist";
 export const fmt = (n: number) => n.toLocaleString("en-US");
