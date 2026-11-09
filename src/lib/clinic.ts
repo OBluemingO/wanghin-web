@@ -28,8 +28,6 @@ export const doctors: Doctor[] = [
   { nick: "หมอเอ๋", full: "ทพญ.ภัทร์ศรี อัสดรมิ่งมิตร", role: "รักษารากฟัน", photo: "https://www.dentalcareatwanghin.com/images/ready-template/crop-1730645116500.jpg" },
   { nick: "ทพ.พชร", full: "ทพ.พชร อภิธนังศิริ", role: "ใส่ฟันและรากเทียม", photo: "https://www.dentalcareatwanghin.com/images/ready-template/crop-1730645226375.jpg" },
   { nick: "หมอไน้ซ์", full: "[ชื่อเต็ม]", role: "อุดฟันเพื่อความสวยงาม", photo: "https://www.dentalcareatwanghin.com/images/ready-template/crop-1730645616034.jpg" },
-  // sixth dentist: seen in the clinic's team photo (doctors1.JPG) but not named on the current site
-  { nick: "[ชื่อหมอ]", full: "[ชื่อเต็ม รอข้อมูลจากคลินิก]", role: "ทันตแพทย์", photo: "/doctors/doctor6.webp" },
 ];
 
 /** Service groups with the prices the clinic publishes on dentalcareatwanghin.com (ranges as listed there). */

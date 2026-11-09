@@ -64,7 +64,7 @@ export default function Home() {
               <figure key={d.nick} className="doctor">
                 <div className="doctor-photo">
                   {d.photo ? (
-                    <Image src={d.photo} alt={d.nick.startsWith("[") ? "ทันตแพทย์ของคลินิก" : `${d.nick} ทันตแพทย์ด้าน${d.role}`} fill sizes="(max-width: 640px) 50vw, 240px" />
+                    <Image src={d.photo} alt={`${d.nick} ทันตแพทย์ด้าน${d.role}`} fill sizes="(max-width: 640px) 50vw, 240px" />
                   ) : (
                     <span>รูปจริงของ{d.nick}</span>
                   )}
@@ -88,7 +88,8 @@ export default function Home() {
             <Link href="/videos" className="btn-primary">ดูคลิปทั้งหมด</Link>
           </div>
           <div className="vgrid vgrid-teaser">
-            {clips.filter((c) => c.pinned).map((c) => <VideoCard key={c.slug} clip={c} />)}
+            {/* the pinned clips first, then the most-liked others, four in all */}
+            {[...clips].sort((a, b) => Number(!!b.pinned) - Number(!!a.pinned) || b.likes - a.likes).slice(0, 4).map((c) => <VideoCard key={c.slug} clip={c} />)}
           </div>
         </section>
 
