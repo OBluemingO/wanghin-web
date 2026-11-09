@@ -6,12 +6,11 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { GUM_LOWER, GUM_UPPER } from "@/lib/clinic";
 
-const K = 0.42;
-const ZF = 1.5;
-const CENTER = new THREE.Vector3(0, -0.6, 0.4);
+const CENTER = new THREE.Vector3(0, -0.4, 0.5);
 const PINK = new THREE.Color("#b8445f");
-const ENAMEL = new THREE.Color("#f2ede4");
-const GUM = new THREE.Color("#d97f8e");
+const ENAMEL = new THREE.Color("#f3eee4");
+const GUM = new THREE.Color("#cf5a64");
+const GUM_HI = new THREE.Color("#ff9fab");
 
 type Props = {
   selected: number;
@@ -23,7 +22,9 @@ type Props = {
   label: string;
 };
 
-type ToothMeta = { id: number; idx: number; upper: number; u: number; fdi: number };
+/** One tooth placement in jaw.glb (typodont v2): which prototype mesh, where, and how it is turned. */
+type ToothMeta = { id: number; fdi: number; upper: number; proto: string; x: number; y: number; z: number; rz: number; rx: number; mirror: boolean };
+type Rig = { hinge: [number, number, number]; upper_world_z: number };
 
 export default function JawViewer({ selected, onSelect, faceToken, openToken, label }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -58,8 +59,8 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
 
     const camera = new THREE.PerspectiveCamera(22, 1, 0.1, 60);
     camera.up.set(0, 0, 1);
-    camera.position.set(0, -14, 3.8);
-    camera.lookAt(0, -0.6, 0.45);
+    camera.position.set(0, -15, 4.2);
+    camera.lookAt(0, -0.4, 0.5);
 
     const key = new THREE.DirectionalLight(0xfff6ee, 1.7);
     key.position.set(-4, -6, 7);
@@ -80,12 +81,16 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
     scene.add(pitchG);
 
     const lower = new THREE.Group();
+    // The upper arch is modelled crown-up like the lower one, then flipped and hung from a hinge at the back.
     const hinge = new THREE.Group();
-    hinge.position.set(0, 0.9, 0.5);
     const upperRoot = new THREE.Group();
-    upperRoot.position.set(0, -0.9, 0.36);
-    upperRoot.scale.set(1.04, 1.04, -1);
+    upperRoot.scale.set(1, 1, -1);
     hinge.add(upperRoot);
+    const setRig = ({ hinge: [hx, hy, hz], upper_world_z }: Rig) => {
+      hinge.position.set(hx, hy, hz);
+      upperRoot.position.set(-hx, -hy, upper_world_z - hz);
+    };
+    setRig({ hinge: [0, 1.25, 0.75], upper_world_z: 0.97 });
     offsetG.add(lower, hinge);
 
     const pickables: THREE.Mesh[] = [];
@@ -100,30 +105,29 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
 
     new GLTFLoader().load("/models/jaw.glb", (gltf) => {
       if (disposed) return;
-      const json = gltf.parser.json as { extras?: { teeth?: ToothMeta[] } };
+      const json = gltf.parser.json as { extras?: { teeth?: ToothMeta[]; rig?: Rig } };
       const meta = json.extras?.teeth ?? [];
+      if (json.extras?.rig) setRig(json.extras.rig);
       const geo = (name: string) => (gltf.scene.getObjectByName(name) as THREE.Mesh).geometry;
+      const soft = (color: THREE.Color, roughness: number, extra: Partial<THREE.MeshPhysicalMaterialParameters> = {}) =>
+        light
+          ? new THREE.MeshStandardMaterial({ color: color.clone(), roughness })
+          : new THREE.MeshPhysicalMaterial({ color: color.clone(), roughness, ...extra });
 
-      const gumGeo = geo("gum");
-      [[lower, GUM_LOWER], [upperRoot, GUM_UPPER]].forEach(([parent, id]) => {
-        const mat = light
-          ? new THREE.MeshStandardMaterial({ color: GUM.clone(), roughness: 0.38 })
-          : new THREE.MeshPhysicalMaterial({ color: GUM.clone(), roughness: 0.42, clearcoat: 0.45, clearcoatRoughness: 0.2, sheen: 0.5, sheenColor: new THREE.Color("#ffc6cf"), sheenRoughness: 0.5 });
-        const m = new THREE.Mesh(gumGeo, mat);
+      // teeth and gums only; each gum is pickable (it has its own info card)
+      ([["gum_lower", lower, GUM_LOWER], ["gum_upper", upperRoot, GUM_UPPER]] as const).forEach(([name, parent, id]) => {
+        const m = new THREE.Mesh(geo(name), soft(GUM, 0.4, { clearcoat: 0.5, clearcoatRoughness: 0.18, sheen: 0.4, sheenColor: new THREE.Color("#ffb3bc"), sheenRoughness: 0.5 }));
         m.userData.id = id;
-        (parent as THREE.Group).add(m);
+        parent.add(m);
         pickables.push(m);
         gumMeshes.push(m);
       });
-
       meta.forEach((t) => {
         const holder = new THREE.Group();
-        holder.position.set(t.u, -(ZF - K * t.u * t.u), 0);
-        holder.rotation.z = Math.atan2(2 * K * t.u, 1);
-        const mat = light
-          ? new THREE.MeshStandardMaterial({ color: ENAMEL.clone(), roughness: 0.2 })
-          : new THREE.MeshPhysicalMaterial({ color: ENAMEL.clone(), roughness: 0.24, clearcoat: 0.9, clearcoatRoughness: 0.07, ior: 1.55 });
-        const m = new THREE.Mesh(geo("tooth" + t.idx), mat);
+        holder.position.set(t.x, t.y, t.z);
+        holder.rotation.set(t.rx, 0, t.rz, "ZYX"); // tilt first, then turn along the arch
+        const m = new THREE.Mesh(geo(t.proto), soft(ENAMEL, light ? 0.2 : 0.24, { clearcoat: 0.9, clearcoatRoughness: 0.07, ior: 1.55 }));
+        if (t.mirror) m.scale.x = -1;
         m.userData.id = t.id;
         holder.add(m);
         (t.upper ? upperRoot : lower).add(holder);
@@ -206,21 +210,21 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
       }
       yawG.rotation.z = state.yaw;
       pitchG.rotation.x = state.pitch;
-      hinge.rotation.x = -state.open * 0.52;
+      hinge.rotation.x = -state.open * 0.42;
 
       const sel = selRef.current;
       const gumSel = sel === GUM_LOWER || sel === GUM_UPPER;
       const gumHov = state.hoverId === GUM_LOWER || state.hoverId === GUM_UPPER;
       gumMeshes.forEach((m) => {
-        const a = gumSel ? 0.45 : gumHov ? 0.2 : 0;
+        const a = gumSel ? 0.4 : gumHov ? 0.18 : 0;
         const mat = m.material as THREE.MeshStandardMaterial;
-        mat.color.copy(tmp.copy(GUM).lerp(PINK, a));
+        mat.color.copy(tmp.copy(GUM).lerp(GUM_HI, a));
       });
       toothMeshes.forEach((m, id) => {
         const target = sel === id ? 1 : 0;
         const cur = (lift.get(id) ?? 0) + (target - (lift.get(id) ?? 0)) * Math.min(1, dt * 9);
         lift.set(id, cur);
-        m.position.z = cur * 0.1;
+        m.position.z = cur * 0.12;
         const a = sel === id ? 0.6 : state.hoverId === id ? 0.28 : 0;
         const mat = m.material as THREE.MeshStandardMaterial;
         mat.color.copy(tmp.copy(ENAMEL).lerp(PINK, a));
