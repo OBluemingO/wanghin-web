@@ -29,7 +29,7 @@ export default function Home() {
         <section id="services" className="wrap section">
           <div className="section-head">
             <h2 className="h-display section-title">ปัญหาอยู่ตรงไหน<br />เรามีคนดูแลตรงนั้น</h2>
-            <p className="muted narrow">ราคาที่ไม่ได้ระบุขึ้นกับแต่ละเคส หมอแจ้งราคาทุกขั้นตอนก่อนเริ่มทำ</p>
+            <p className="muted narrow">ราคาตามที่คลินิกประกาศ (บาท) อาจปรับเปลี่ยนได้ ส่วนที่ไม่ได้ระบุขึ้นกับแต่ละเคส หมอแจ้งราคาทุกขั้นตอนก่อนเริ่มทำ</p>
           </div>
           <div className="service-list">
             {services.map((s) => (
@@ -38,7 +38,15 @@ export default function Home() {
                   <span className="dot" style={{ background: s.dot }} aria-hidden="true" />
                   <h3 className="h-display">{s.part}</h3>
                 </div>
-                <p className="service-items">{s.items}</p>
+                <div className="service-items">
+                  <p>{s.items}</p>
+                  {s.prices && (
+                    <ul className="service-prices">
+                      {s.prices.map((p) => <li key={p.label}><span>{p.label}</span><b>{p.price}</b></li>)}
+                    </ul>
+                  )}
+                  {s.note && <p className="service-note">{s.note}</p>}
+                </div>
                 <div className="service-price">
                   <p className="h-display">{s.price}</p>
                   <p className="service-who">{s.who}</p>

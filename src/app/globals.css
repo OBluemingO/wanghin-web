@@ -87,11 +87,16 @@ h1, h2, h3, p { margin: 0; }
 .service-list { margin-top: 40px; display: flex; flex-direction: column; gap: 10px; }
 .service { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 32px; padding: 26px 32px; border-radius: 24px; background: #fff; }
 .service.featured { background: var(--ink); color: #fff; }
-.service-part { flex: 0 0 180px; display: flex; align-items: center; gap: 12px; }
+.service-part { flex: 0 0 180px; display: flex; align-items: center; gap: 12px; align-self: flex-start; }
 .service-part h3 { font-size: 24px; font-weight: 600; }
 .dot { flex: 0 0 14px; height: 14px; border-radius: 50%; }
 .service-items { flex: 1 1 300px; min-width: 0; font-size: 17px; }
-.service-price { flex: 0 0 220px; text-align: right; }
+.service-price { flex: 0 0 220px; text-align: right; align-self: flex-start; }
+.service-prices { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 2px; max-width: 560px; }
+.service-prices li { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; padding: 6px 0; border-bottom: 1px dashed rgba(59, 30, 42, .14); font-size: 15.5px; }
+.service-prices b { font-family: var(--display); font-weight: 600; white-space: nowrap; }
+.service.featured .service-prices li { border-color: rgba(255, 255, 255, .2); }
+.service-note { margin-top: 8px; font-size: 14px; opacity: .75; }
 .service-price .h-display { font-size: 22px; font-weight: 700; }
 .service-who { font-size: 14px; opacity: 0.8; }
 

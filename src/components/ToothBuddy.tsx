@@ -134,17 +134,26 @@ export default function ToothBuddy() {
       >
         <span className="buddy-lean">
           <span key={jump} className={`buddy-hop${jump ? " is-happy" : ""}`}>
-            {/* eslint-disable-next-line @next/next/no-img-element -- tiny pre-sized sprite, no optimisation needed */}
-            <img src="/mascot/tooth.webp" alt="" width={320} height={320} draggable={false} />
-            <span className="buddy-cheek l" />
-            <span className="buddy-cheek r" />
-            <span className="buddy-eye l" />
-            <span className="buddy-eye r" />
-            <span className="buddy-mouth" />
+            <ToothFace />
           </span>
         </span>
       </button>
       <button type="button" className="buddy-x" onClick={close} aria-label="ซ่อนฟันน้อย">×</button>
     </div>
+  );
+}
+
+/** The mascot's body and face, without any behaviour. Size it with a positioned parent. */
+export function ToothFace() {
+  return (
+    <>
+      {/* eslint-disable-next-line @next/next/no-img-element -- tiny pre-sized sprite, no optimisation needed */}
+      <img src="/mascot/tooth.webp" alt="" width={320} height={320} draggable={false} />
+      <span className="buddy-cheek l" />
+      <span className="buddy-cheek r" />
+      <span className="buddy-eye l" />
+      <span className="buddy-eye r" />
+      <span className="buddy-mouth" />
+    </>
   );
 }

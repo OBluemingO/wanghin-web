@@ -21,7 +21,7 @@ export default function Hero() {
   const onSelect = useCallback((id: number) => {
     setSel(id);
     // the floating tooth guide reacts to the pick
-    window.dispatchEvent(new CustomEvent("buddy-say", { detail: `${infoFor(id).kicker} ใช่ไหม? กดที่ฉันเพื่อจองคิวได้เลย` }));
+    window.dispatchEvent(new CustomEvent("buddy-say", { detail: `${infoFor(id).kicker} ใช่ไหม? กดที่เราเพื่อจองคิวได้เลย` }));
   }, []);
 
   return (
