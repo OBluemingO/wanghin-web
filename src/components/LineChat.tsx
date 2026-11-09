@@ -13,11 +13,12 @@ type Msg =
 type Chips = "none" | "concern" | "confirm" | "again" | "manage" | "cancel";
 
 const CONCERNS = [
-  { label: "เหงือกบวม เลือดออก", doc: "หมอหยง ทพญ.สุพรรัตน์", role: "ทันตแพทย์เฉพาะทางโรคเหงือก" },
-  { label: "ปวดฟัน", doc: "หมอเอ๋ ทพญ.ภัทร์ศรี", role: "ทันตแพทย์รักษารากฟัน" },
-  { label: "ขูดหินปูน อุดฟัน", doc: "ทีมทันตแพทย์", role: "ทันตกรรมทั่วไป ใช้ประกันสังคมได้" },
-  { label: "ปรึกษาจัดฟัน", doc: "ทันตแพทย์จัดฟัน", role: "ปรึกษาเรื่องจัดฟัน" },
-  { label: "ใส่ฟัน รากเทียม", doc: "ทพ.พชร", role: "ทันตแพทย์ใส่ฟันและรากเทียม" },
+  // who looks after it, by specialty only (the bot doesn't name individual dentists)
+  { label: "เหงือกบวม เลือดออก", doc: "หมอเหงือกเฉพาะทาง", role: "เวลาว่างของ" },
+  { label: "ปวดฟัน", doc: "หมอรักษารากฟัน", role: "เวลาว่างของ" },
+  { label: "ขูดหินปูน อุดฟัน", doc: "ทีมทันตแพทย์", role: "ใช้ประกันสังคมได้ · เวลาว่างของ" },
+  { label: "ปรึกษาจัดฟัน", doc: "หมอจัดฟัน", role: "เวลาว่างของ" },
+  { label: "ใส่ฟัน รากเทียม", doc: "หมอใส่ฟันและรากเทียม", role: "เวลาว่างของ" },
 ];
 const PHONE = "098-882-4785";
 const WELCOME: Msg = { kind: "bot", text: "สวัสดีค่ะ Dental Care @วังหิน\nกดเมนูด้านล่าง หรือพิมพ์คำถามมาได้ตลอด 24 ชม." };
@@ -213,7 +214,7 @@ export default function LineChat({ onClose }: { onClose?: () => void }) {
                 <div className="h-display line-card-doc dark">เลขนัด {m.booking.code}</div>
                 <dl className="line-dl">
                   <dt>เรื่อง</dt><dd>{m.booking.concern}</dd>
-                  <dt>หมอ</dt><dd>{m.booking.doc}</dd>
+                  <dt>ดูแลโดย</dt><dd>{m.booking.doc}</dd>
                   <dt>เวลา</dt><dd><b>{m.booking.slot.label}</b></dd>
                   <dt>ที่</dt><dd>ตรงข้ามโลตัสวังหิน</dd>
                 </dl>
@@ -224,7 +225,7 @@ export default function LineChat({ onClose }: { onClose?: () => void }) {
               <div className="h-display line-card-doc dark">ตรวจรายละเอียดนัด</div>
               <dl className="line-dl">
                 <dt>เรื่อง</dt><dd>{m.concern}</dd>
-                <dt>หมอ</dt><dd>{m.doc}</dd>
+                <dt>ดูแลโดย</dt><dd>{m.doc}</dd>
                 <dt>เวลา</dt><dd><b>{m.slot.label}</b></dd>
                 <dt>ที่</dt><dd>ตรงข้ามโลตัสวังหิน</dd>
               </dl>

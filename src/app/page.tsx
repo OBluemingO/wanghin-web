@@ -102,7 +102,7 @@ export default function Home() {
             </div>
             <ol className="steps">
               <li><span className="h-display step-n">1</span><b>แอด LINE คลินิก</b><span className="muted small">สแกน QR หรือกดปุ่มจองบนเว็บ</span></li>
-              <li><span className="h-display step-n">2</span><b>เลือกอาการ หมอ และเวลา</b><span className="muted small">เห็นช่วงเวลาที่ว่างจริงของหมอแต่ละคน</span></li>
+              <li><span className="h-display step-n">2</span><b>เลือกอาการและเวลา</b><span className="muted small">บอทจัดหมอที่ตรงกับอาการให้ และแสดงเฉพาะเวลาที่ว่างจริง</span></li>
               <li><span className="h-display step-n">3</span><b>ได้คิวยืนยันทันที</b><span className="muted small">เลื่อนหรือยกเลิกนัดในแชทได้เอง</span></li>
             </ol>
           </div>
