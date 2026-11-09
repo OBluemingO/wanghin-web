@@ -11,6 +11,10 @@ const PINK = new THREE.Color("#b8445f");
 const ENAMEL = new THREE.Color("#f3eee4");
 const GUM = new THREE.Color("#cf5a64");
 const GUM_HI = new THREE.Color("#ff9fab");
+const LOOK = new THREE.Vector3(0, -0.4, 0.5);
+const CAM = new THREE.Vector3(0, -15, 4.2);
+const ZOOM_MIN = 0.75;
+const ZOOM_MAX = 2.6;
 
 type Props = {
   selected: number;
@@ -30,7 +34,12 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const selRef = useRef(selected);
   const onSelectRef = useRef(onSelect);
-  const ctl = useRef({ faceGoal: false, keepOpen: false });
+  const ctl = useRef({ faceGoal: false, keepOpen: false, zoomGoal: 1 });
+  const zoomBy = (f: number) => {
+    const c = ctl.current;
+    c.zoomGoal = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, c.zoomGoal * f));
+    window.dispatchEvent(new Event("jaw-wake"));
+  };
 
   useEffect(() => { selRef.current = selected; }, [selected]);
   useEffect(() => { onSelectRef.current = onSelect; }, [onSelect]);
@@ -59,8 +68,11 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
 
     const camera = new THREE.PerspectiveCamera(22, 1, 0.1, 60);
     camera.up.set(0, 0, 1);
-    camera.position.set(0, -15, 4.2);
-    camera.lookAt(0, -0.4, 0.5);
+    const placeCamera = (zoom: number) => {
+      camera.position.copy(CAM).sub(LOOK).divideScalar(zoom).add(LOOK);
+      camera.lookAt(LOOK);
+    };
+    placeCamera(1);
 
     const key = new THREE.DirectionalLight(0xfff6ee, 1.7);
     key.position.set(-4, -6, 7);
@@ -98,7 +110,11 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
     const gumMeshes: THREE.Mesh[] = [];
     const lift = new Map<number, number>();
 
-    const state = { hover: false, hoverId: 0, dragging: false, moved: 0, lx: 0, ly: 0, open: 0, yaw: 0.35, pitch: 0.08, spin: !reduce, touchOpen: false };
+    const state = { hover: false, hoverId: 0, dragging: false, moved: 0, lx: 0, ly: 0, open: 0, yaw: 0.35, pitch: 0.08, spin: !reduce, touchOpen: false, zoom: 1 };
+    // two-finger pinch: remember every active pointer and the finger spread when the pinch started
+    const touches = new Map<number, { x: number; y: number }>();
+    let pinch = 0;
+    const spread = () => { const [a, b] = [...touches.values()]; return Math.hypot(a.x - b.x, a.y - b.y); };
     const pointer = new THREE.Vector2();
     const raycaster = new THREE.Raycaster();
     let disposed = false;
@@ -157,6 +173,8 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
       pointer.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     };
     const onDown = (e: PointerEvent) => {
+      touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (touches.size === 2) { pinch = spread() / ctl.current.zoomGoal; state.dragging = false; state.moved = 99; return; }
       state.dragging = true; state.moved = 0; state.lx = e.clientX; state.ly = e.clientY; state.spin = false;
       ctl.current.faceGoal = false;
       if (e.pointerType === "touch") state.touchOpen = true;
@@ -164,6 +182,12 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
       canvas.setPointerCapture?.(e.pointerId);
     };
     const onMove = (e: PointerEvent) => {
+      if (touches.has(e.pointerId)) touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (touches.size === 2 && pinch) {
+        ctl.current.zoomGoal = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, spread() / pinch));
+        start();
+        return;
+      }
       state.hover = true;
       toPointer(e);
       if (state.dragging) {
@@ -177,11 +201,22 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
       }
       canvas.style.cursor = state.dragging ? "grabbing" : state.hoverId ? "pointer" : "grab";
     };
-    const onUp = () => {
+    const onUp = (e: PointerEvent) => {
+      touches.delete(e.pointerId);
+      if (touches.size < 2) pinch = 0;
       if (state.dragging && state.moved < 6 && state.hoverId) onSelectRef.current(state.hoverId);
       state.dragging = false;
     };
-    const onLeave = () => { state.hover = false; state.hoverId = 0; state.dragging = false; };
+    const onLeave = (e: PointerEvent) => { touches.delete(e.pointerId); pinch = 0; state.hover = false; state.hoverId = 0; state.dragging = false; };
+    // mouse wheel / trackpad pinch zooms while the pointer is over the model
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      const c = ctl.current;
+      c.zoomGoal = Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, c.zoomGoal * Math.exp(-e.deltaY * (e.ctrlKey ? 0.01 : 0.0015))));
+      start();
+    };
+    canvas.addEventListener("wheel", onWheel, { passive: false });
+    canvas.addEventListener("pointercancel", onLeave);
     canvas.addEventListener("pointerdown", onDown);
     canvas.addEventListener("pointermove", onMove);
     canvas.addEventListener("pointerup", onUp);
@@ -211,6 +246,10 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
       yawG.rotation.z = state.yaw;
       pitchG.rotation.x = state.pitch;
       hinge.rotation.x = -state.open * 0.42;
+      const zg = ctl.current.zoomGoal;
+      state.zoom += (zg - state.zoom) * (reduce ? 1 : Math.min(1, dt * 10));
+      if (Math.abs(zg - state.zoom) < 0.0005) state.zoom = zg;
+      placeCamera(state.zoom);
 
       const sel = selRef.current;
       const gumSel = sel === GUM_LOWER || sel === GUM_UPPER;
@@ -231,8 +270,8 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
       });
 
       // Draw only when something on screen changed. While it is just spinning on a phone, 30 fps is plenty.
-      const busy = state.dragging || ctl.current.faceGoal || Math.abs((wantOpen ? 1 : 0) - state.open) > 0.002 || [...lift.values()].some((v, i) => Math.abs(v - (sel === [...lift.keys()][i] ? 1 : 0)) > 0.002);
-      const key = `${state.yaw.toFixed(4)}|${state.pitch.toFixed(4)}|${state.open.toFixed(3)}|${sel}|${state.hoverId}|${toothMeshes.size}`;
+      const busy = state.dragging || state.zoom !== ctl.current.zoomGoal || ctl.current.faceGoal || Math.abs((wantOpen ? 1 : 0) - state.open) > 0.002 || [...lift.values()].some((v, i) => Math.abs(v - (sel === [...lift.keys()][i] ? 1 : 0)) > 0.002);
+      const key = `${state.yaw.toFixed(4)}|${state.pitch.toFixed(4)}|${state.open.toFixed(3)}|${sel}|${state.hoverId}|${toothMeshes.size}|${state.zoom.toFixed(4)}`;
       skip = light && !busy && !skip;
       if (key !== lastKey && !(skip && state.spin)) {
         renderer.render(scene, camera);
@@ -245,12 +284,16 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
     io.observe(canvas);
     const onVis = () => start();
     document.addEventListener("visibilitychange", onVis);
+    window.addEventListener("jaw-wake", onVis);
 
     return () => {
       disposed = true;
       cancelAnimationFrame(raf);
       io.disconnect();
       document.removeEventListener("visibilitychange", onVis);
+      window.removeEventListener("jaw-wake", onVis);
+      canvas.removeEventListener("wheel", onWheel);
+      canvas.removeEventListener("pointercancel", onLeave);
       ro.disconnect();
       canvas.removeEventListener("pointerdown", onDown);
       canvas.removeEventListener("pointermove", onMove);
@@ -266,5 +309,13 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="jaw-canvas" role="img" aria-label={label} />;
+  return (
+    <div className="jaw-wrap">
+      <canvas ref={canvasRef} className="jaw-canvas" role="img" aria-label={label} />
+      <div className="jaw-zoom" role="group" aria-label="ซูมโมเดล">
+        <button type="button" onClick={() => zoomBy(1.35)} aria-label="ซูมเข้า">+</button>
+        <button type="button" onClick={() => zoomBy(1 / 1.35)} aria-label="ซูมออก">−</button>
+      </div>
+    </div>
+  );
 }

@@ -43,7 +43,7 @@ export default function Hero() {
         <div className="hero-model">
           <div className="model-disc" aria-hidden="true" />
           <JawViewer selected={sel} onSelect={onSelect} faceToken={faceToken} openToken={openToken} label="โมเดลฟันทั้งปาก 3 มิติ ลากเพื่อหมุน ชี้เพื่อให้ปากเปิด แล้วกดเลือกฟันแต่ละซี่" />
-          <p className="model-hint">ลากเพื่อหมุนรอบตัว ชี้ให้ปากเปิด แล้วกดฟันซี่ที่มีปัญหา</p>
+          <p className="model-hint">ลากเพื่อหมุน ซูมด้วยล้อเมาส์หรือสองนิ้ว แล้วกดฟันซี่ที่มีปัญหา</p>
           <div className="quick">
             <button type="button" className="chip" onClick={() => quick(15)}>ฟันหน้า</button>
             <button type="button" className="chip" onClick={() => quick(13)}>ฟันกราม</button>
