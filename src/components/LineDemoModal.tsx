@@ -19,9 +19,18 @@ export default function LineDemoModal() {
 
   useEffect(() => {
     if (!open) return;
+    const back = document.activeElement as HTMLElement | null;
     const esc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", esc);
-    return () => window.removeEventListener("keydown", esc);
+    // keep the page behind still, and put focus inside the dialog (back on the opener when it closes)
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.querySelector<HTMLElement>(".modal .line-close")?.focus();
+    return () => {
+      window.removeEventListener("keydown", esc);
+      document.body.style.overflow = overflow;
+      back?.focus?.();
+    };
   }, [open]);
 
   if (!open) return null;
