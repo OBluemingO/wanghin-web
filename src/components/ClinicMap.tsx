@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { clinic } from "@/lib/clinic";
+import { MARK_HAND, MARK_TOOTH } from "./Icons";
 
 /**
  * Free, keyless map: MapLibre GL (open source) with OpenFreeMap vector tiles (OpenStreetMap data).
@@ -60,9 +61,13 @@ export default function ClinicMap() {
         const pin = document.createElement("div");
         pin.className = "map-pin";
         pin.setAttribute("aria-hidden", "true");
+        // pin head carries the clinic mark: tooth cradled by the hand, wrist running out to the pin's edge
         pin.innerHTML =
-          '<svg width="46" height="56" viewBox="0 0 46 56"><path d="M23 55c0 0 21-19.2 21-33A21 21 0 0 0 2 22c0 13.8 21 33 21 33z" fill="#B4500A" stroke="#fff" stroke-width="3"/>' +
-          '<path d="M12 31V22.5Q17.5 14 23 22.5Q28.5 14 34 22.5V31q0 1.5-1.5 1.5h-19Q12 32.5 12 31z" fill="#fff"/></svg>' +
+          '<svg width="48" height="58" viewBox="0 0 46 56"><defs><clipPath id="pin-head"><circle cx="23" cy="22" r="17.5"/></clipPath></defs>' +
+          '<path d="M23 55c0 0 21-19.2 21-33A21 21 0 0 0 2 22c0 13.8 21 33 21 33z" fill="#B4500A" stroke="#fff" stroke-width="3"/>' +
+          '<g clip-path="url(#pin-head)"><g transform="translate(5.7 4.7) scale(.72)">' +
+          `<path d="${MARK_TOOTH}" fill="#fff"/><path d="${MARK_HAND}" fill="#B4500A" stroke="#fff" stroke-width="1.1" stroke-linejoin="round"/>` +
+          '</g></g></svg>' +
           '<span class="map-pin-label">Dental Care @วังหิน</span>';
         new maplibregl.Marker({ element: pin, anchor: "bottom" }).setLngLat([lng, lat]).addTo(m);
       } catch (err) {
