@@ -7,11 +7,22 @@ export function LineIcon({ size = 22 }: { size?: number }) {
   );
 }
 
-export function BrandMark({ size = 40, bg = "#B8445F", fg = "#FFFFFF", label }: { size?: number; bg?: string; fg?: string; label?: string }) {
+/**
+ * The clinic's mark, redrawn from its original logo (a molar held by a caring hand inside an oval ring)
+ * in the new palette: white tooth, soft-pink hand, on gum pink. Simple enough to read at favicon size.
+ */
+export function BrandMark({ size = 40, bg = "#B8445F", fg = "#FFFFFF", accent = "#F2CBD4", label }: { size?: number; bg?: string; fg?: string; accent?: string; label?: string }) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" role={label ? "img" : undefined} aria-label={label} aria-hidden={label ? undefined : true}>
       <rect width="48" height="48" rx="12" fill={bg} />
-      <path d="M9 39 L9 25 Q16.5 13 24 25 Q31.5 13 39 25 L39 39 Q39 41 37 41 L11 41 Q9 41 9 39 Z" fill={fg} />
+      <ellipse cx="24" cy="24.5" rx="17.2" ry="19" fill="none" stroke={accent} strokeWidth="1.3" opacity="0.55" />
+      <path d="M13.6 17.4C13.6 11.2 18.8 9.6 24 12.3 29.2 9.6 34.4 11.2 34.4 17.4 34.4 22.4 32.4 24.6 31.8 28.6L30.3 37.2C29.9 39.8 27.2 39.8 26.8 37.2L25.5 30.4C25.2 28.9 22.8 28.9 22.5 30.4L21.2 37.2C20.8 39.8 18.1 39.8 17.7 37.2L16.2 28.6C15.6 24.6 13.6 22.4 13.6 17.4Z" fill={fg} />
+      {/* open hand, palm up, reaching in from the right with the fingertips curling up at the tooth */}
+      <g fill={accent} stroke={bg} strokeWidth="1.1" strokeLinejoin="round" paintOrder="stroke">
+        <path d="M45 20.6C39.6 18.6 33.4 18.4 27.4 19.3 23.4 19.9 19.6 19.5 17.4 18.1 16.3 17.4 15 18 15.4 19.3 16.4 22.3 19.8 23.9 24.6 24.2 30.6 24.6 37 24.8 45 27.4Z" />
+        <path d="M30.6 19.4C30.9 16.9 33 15.5 35.3 16.1 36.3 16.4 36.4 17.5 35.6 18.2L34.4 19.3Z" />
+      </g>
+      <path d="M19.6 21.9C22.2 22.3 25 22.2 27.6 21.8M18.4 20.2C20.6 20.8 23 20.9 25.4 20.7" fill="none" stroke={bg} strokeWidth="0.6" strokeLinecap="round" opacity="0.45" />
     </svg>
   );
 }

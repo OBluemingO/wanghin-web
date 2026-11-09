@@ -112,10 +112,10 @@ export default function Proposal() {
               <BrandMark size={96} label="เครื่องหมาย Dental Care @วังหิน" />
               <div><div className="h-display" style={{ fontSize: 46, fontWeight: 700, lineHeight: 1.05 }}>Dental Care</div><div style={{ fontSize: 26, color: "var(--gum)", fontWeight: 600 }}>@วังหิน</div></div>
             </div>
-            <p>เครื่องหมายคือแนวขอบเหงือกที่โอบซี่ฟันสองซี่ไว้ เล่าสิ่งที่คลินิกนี้ต่างจากที่อื่นในภาพเดียว คือหมอเจ้าของเป็นทันตแพทย์เฉพาะทางโรคเหงือก</p>
+            <p>เครื่องหมายมาจากโลโก้เดิมของคลินิก คือฟันกรามที่มีมือประคองอยู่ในกรอบวงรี คงความหมายเดิมเรื่องการดูแลด้วยความใส่ใจ แต่วาดใหม่ให้เส้นเรียบ ใช้สีชมพูเหงือกของแบรนด์ใหม่ และยังอ่านออกแม้ย่อเป็นไอคอนเล็กบนมือถือ</p>
             <div className={styles.markVariants}>
               <div style={{ background: "#F2CBD4" }}><BrandMark size={60} /></div>
-              <div style={{ background: "#3B1E2A" }}><BrandMark size={60} bg="#F2CBD4" fg="#3B1E2A" /></div>
+              <div style={{ background: "#3B1E2A" }}><BrandMark size={60} bg="#F2CBD4" fg="#3B1E2A" accent="#B8445F" /></div>
               <div style={{ background: "#F4F6F5" }}><BrandMark size={60} bg="#3B1E2A" /></div>
             </div>
           </div>
