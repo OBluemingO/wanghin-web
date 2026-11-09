@@ -6,7 +6,7 @@ function PlayDisc({ size = 40 }: { size?: number }) {
   return (
     <svg aria-hidden="true" width={size} height={size} viewBox="0 0 40 40" className="vplay">
       <circle cx="20" cy="20" r="20" fill="#FFFFFF" />
-      <path d="M16 12.5 L28 20 L16 27.5 Z" fill="#3B1E2A" />
+      <path d="M16 12.5 L28 20 L16 27.5 Z" fill="#1F2A3C" />
     </svg>
   );
 }

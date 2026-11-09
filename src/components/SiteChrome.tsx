@@ -29,7 +29,7 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <GumLine fill="#3B1E2A" bg="#F4F6F5" height={40} />
+      <GumLine fill="#1F2A3C" bg="#F4F6F8" height={40} />
       <div className="wrap footer-row">
         <p>Dental Care @Wanghin คลินิกทันตกรรม ลาดพร้าว–วังหิน</p>
         <p>เลขที่ใบอนุญาตสถานพยาบาล [ใส่เลขจริง]</p>

@@ -12,11 +12,11 @@ export const metadata: Metadata = {
 };
 
 const palette = [
-  { name: "ชมพูเหงือก", hex: "#B8445F", use: "ปุ่มหลัก" },
-  { name: "เหงือกอ่อน", hex: "#F2CBD4", use: "พื้นแถบเด่น" },
-  { name: "หมึกพลัม", hex: "#3B1E2A", use: "ตัวหนังสือ" },
-  { name: "เคลือบฟัน", hex: "#F4F6F5", use: "พื้นหลัง" },
-  { name: "เทาสะอาด", hex: "#E7ECEA", use: "ช่องรูปภาพ" },
+  { name: "ส้มคลินิก", hex: "#B4500A", use: "ปุ่มหลักและลิงก์" },
+  { name: "ส้มโลโก้", hex: "#F7943D", use: "ป้ายเด่นและไอคอน" },
+  { name: "พีชอ่อน", hex: "#FFE3C7", use: "พื้นแถบเด่น" },
+  { name: "กรมท่า", hex: "#1F2A3C", use: "ตัวหนังสือและพื้นเข้ม" },
+  { name: "เทาฟ้า", hex: "#F4F6F8", use: "พื้นหลัง" },
 ];
 
 const audit: { ok: boolean; what: string; detail: string }[] = [
@@ -112,11 +112,11 @@ export default function Proposal() {
               <BrandMark size={96} label="เครื่องหมาย Dental Care @วังหิน" />
               <div><div className="h-display" style={{ fontSize: 46, fontWeight: 700, lineHeight: 1.05 }}>Dental Care</div><div style={{ fontSize: 26, color: "var(--gum)", fontWeight: 600 }}>@วังหิน</div></div>
             </div>
-            <p>เครื่องหมายมาจากโลโก้เดิมของคลินิก คือฟันกรามที่มีมือประคองอยู่ในกรอบวงรี คงรูปทรงเดิมทุกส่วนให้คนไข้เก่าจำได้ เปลี่ยนแค่สีเป็นชมพูเหงือกของแบรนด์ใหม่ และใส่บนพื้นสี่เหลี่ยมมุมมนให้ใช้เป็นไอคอนบนมือถือได้</p>
+            <p>เครื่องหมายมาจากโลโก้เดิมของคลินิก คือฟันกรามที่มีมือประคองอยู่ในกรอบวงรี คงรูปทรงเดิมทุกส่วนให้คนไข้เก่าจำได้ ใช้สีส้มเดิมของคลินิกในเฉดที่เข้มขึ้นให้อ่านชัด และใส่บนพื้นสี่เหลี่ยมมุมมนให้ใช้เป็นไอคอนบนมือถือได้</p>
             <div className={styles.markVariants}>
-              <div style={{ background: "#F2CBD4" }}><BrandMark size={60} /></div>
-              <div style={{ background: "#3B1E2A" }}><BrandMark size={60} bg="#F2CBD4" fg="#3B1E2A" /></div>
-              <div style={{ background: "#F4F6F5" }}><BrandMark size={60} bg="#3B1E2A" /></div>
+              <div style={{ background: "#FFE3C7" }}><BrandMark size={60} /></div>
+              <div style={{ background: "#1F2A3C" }}><BrandMark size={60} bg="#FFE3C7" fg="#1F2A3C" /></div>
+              <div style={{ background: "#F4F6F8" }}><BrandMark size={60} bg="#1F2A3C" /></div>
             </div>
           </div>
           <div>
@@ -130,7 +130,7 @@ export default function Proposal() {
                 </div>
               ))}
             </div>
-            <p className="muted small" style={{ marginTop: 10 }}>ไม่ใช้ฟ้า-ขาวแบบคลินิกทั่วไป ชมพูเหงือกบนพื้นขาวผ่านเกณฑ์อ่านง่าย 5.2:1 สีเขียว LINE ใช้เฉพาะไอคอน LINE</p>
+            <p className="muted small" style={{ marginTop: 10 }}>ส้มมาจากโลโก้เดิม คนไข้เก่าจำได้ทันที กรมท่าทำให้ดูสะอาดและเป็นมืออาชีพ ส้มคลินิกบนพื้นขาวผ่านเกณฑ์อ่านง่าย 5.1:1 ส้มโลโก้ใช้กับพื้นที่ใหญ่ ไม่ใช้เป็นสีตัวหนังสือ สีเขียว LINE ใช้เฉพาะไอคอน LINE</p>
           </div>
         </div>
         <div className={styles.typeRow}>
@@ -148,8 +148,8 @@ export default function Proposal() {
         </div>
         <div className={styles.gumDemo}>
           <div style={{ height: 32, background: "#fff" }} />
-          <GumLine fill="#F2CBD4" bg="#fff" height={56} />
-          <div style={{ height: 24, background: "#F2CBD4" }} />
+          <GumLine fill="#FFE3C7" bg="#fff" height={56} />
+          <div style={{ height: 24, background: "#FFE3C7" }} />
         </div>
         <p className="muted small" style={{ marginTop: 8 }}>ลายเส้นขอบเหงือก หยักตามแนวเหงือกจริงรอบซี่ฟัน ใช้เป็นรอยต่อระหว่างส่วนของหน้าเท่านั้น</p>
 

@@ -7,7 +7,7 @@ import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment
 import { GUM_LOWER, GUM_UPPER } from "@/lib/clinic";
 
 const CENTER = new THREE.Vector3(0, -0.4, 0.5);
-const PINK = new THREE.Color("#b8445f");
+const PICK = new THREE.Color("#e27a2c"); // selection tint, brand orange
 const ENAMEL = new THREE.Color("#f3eee4");
 const GUM = new THREE.Color("#cf5a64");
 const GUM_HI = new THREE.Color("#ff9fab");
@@ -266,7 +266,7 @@ export default function JawViewer({ selected, onSelect, faceToken, openToken, la
         m.position.z = cur * 0.12;
         const a = sel === id ? 0.6 : state.hoverId === id ? 0.28 : 0;
         const mat = m.material as THREE.MeshStandardMaterial;
-        mat.color.copy(tmp.copy(ENAMEL).lerp(PINK, a));
+        mat.color.copy(tmp.copy(ENAMEL).lerp(PICK, a));
       });
 
       // Draw only when something on screen changed. While it is just spinning on a phone, 30 fps is plenty.

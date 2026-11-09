@@ -61,7 +61,7 @@ export default function ClinicMap() {
         pin.className = "map-pin";
         pin.setAttribute("aria-hidden", "true");
         pin.innerHTML =
-          '<svg width="46" height="56" viewBox="0 0 46 56"><path d="M23 55c0 0 21-19.2 21-33A21 21 0 0 0 2 22c0 13.8 21 33 21 33z" fill="#B8445F" stroke="#fff" stroke-width="3"/>' +
+          '<svg width="46" height="56" viewBox="0 0 46 56"><path d="M23 55c0 0 21-19.2 21-33A21 21 0 0 0 2 22c0 13.8 21 33 21 33z" fill="#B4500A" stroke="#fff" stroke-width="3"/>' +
           '<path d="M12 31V22.5Q17.5 14 23 22.5Q28.5 14 34 22.5V31q0 1.5-1.5 1.5h-19Q12 32.5 12 31z" fill="#fff"/></svg>' +
           '<span class="map-pin-label">Dental Care @วังหิน</span>';
         new maplibregl.Marker({ element: pin, anchor: "bottom" }).setLngLat([lng, lat]).addTo(m);

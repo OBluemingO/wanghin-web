@@ -14,7 +14,7 @@ export default function Home() {
       <SiteHeader />
       <main>
         <Hero />
-        <GumLine fill="#F2CBD4" bg="#FFFFFF" />
+        <GumLine fill="#FFE3C7" bg="#FFFFFF" />
 
         <section className="sso">
           <div className="wrap sso-row">
