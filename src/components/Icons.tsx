@@ -17,12 +17,8 @@ export function BrandMark({ size = 40, bg = "#B8445F", fg = "#FFFFFF", accent = 
       <rect width="48" height="48" rx="12" fill={bg} />
       <ellipse cx="24" cy="24.5" rx="17.2" ry="19" fill="none" stroke={accent} strokeWidth="1.3" opacity="0.55" />
       <path d="M13.6 17.4C13.6 11.2 18.8 9.6 24 12.3 29.2 9.6 34.4 11.2 34.4 17.4 34.4 22.4 32.4 24.6 31.8 28.6L30.3 37.2C29.9 39.8 27.2 39.8 26.8 37.2L25.5 30.4C25.2 28.9 22.8 28.9 22.5 30.4L21.2 37.2C20.8 39.8 18.1 39.8 17.7 37.2L16.2 28.6C15.6 24.6 13.6 22.4 13.6 17.4Z" fill={fg} />
-      {/* open hand, palm up, reaching in from the right with the fingertips curling up at the tooth */}
-      <g fill={accent} stroke={bg} strokeWidth="1.1" strokeLinejoin="round" paintOrder="stroke">
-        <path d="M45 20.6C39.6 18.6 33.4 18.4 27.4 19.3 23.4 19.9 19.6 19.5 17.4 18.1 16.3 17.4 15 18 15.4 19.3 16.4 22.3 19.8 23.9 24.6 24.2 30.6 24.6 37 24.8 45 27.4Z" />
-        <path d="M30.6 19.4C30.9 16.9 33 15.5 35.3 16.1 36.3 16.4 36.4 17.5 35.6 18.2L34.4 19.3Z" />
-      </g>
-      <path d="M19.6 21.9C22.2 22.3 25 22.2 27.6 21.8M18.4 20.2C20.6 20.8 23 20.9 25.4 20.7" fill="none" stroke={bg} strokeWidth="0.6" strokeLinecap="round" opacity="0.45" />
+      {/* the caring hand from the original logo: fingers and thumb cup the crown, the wrist runs into the ring */}
+      <path fill={accent} stroke={bg} strokeWidth="1.3" strokeLinejoin="round" paintOrder="stroke" d="M13.2 15.6C15.2 18.8 19.4 21.6 24.6 22.6C29.2 23.4 33 24.8 36.2 27.2C37.8 28.6 39 30.2 39.8 31.9A17.2 19 0 0 0 41.1 27.3C39.2 25.8 37.2 23.8 35.4 21.4C33.2 19.8 31 18.6 28.6 18C26 17.3 23.2 16.1 21 15.4C19.7 15 19 16.3 19.9 17.1C21.6 18.5 23.8 19.5 26 20.1C23.8 20.3 21.2 19.8 18.9 18.8C17.3 18.1 15.9 16.7 15.2 15.3C14.7 14.3 13.4 14.4 13.2 15.6Z" />
     </svg>
   );
 }
