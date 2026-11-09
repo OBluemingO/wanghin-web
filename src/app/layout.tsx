@@ -13,6 +13,7 @@ import "./globals.css";
 import { clinic, DEMO, SITE_URL } from "@/lib/clinic";
 import DemoBanner from "@/components/DemoBanner";
 import LineDemoModal from "@/components/LineDemoModal";
+import ToothBuddy from "@/components/ToothBuddy";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -81,6 +82,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {DEMO && <DemoBanner />}
         {children}
         <LineDemoModal />
+        <ToothBuddy />
       </body>
     </html>
   );

@@ -18,7 +18,11 @@ export default function Hero() {
     setFaceToken((n) => n + 1);
     if (id !== GUM_LOWER) setOpenToken((n) => n + 1);
   };
-  const onSelect = useCallback((id: number) => setSel(id), []);
+  const onSelect = useCallback((id: number) => {
+    setSel(id);
+    // the floating tooth guide reacts to the pick
+    window.dispatchEvent(new CustomEvent("buddy-say", { detail: `${infoFor(id).kicker} ใช่ไหม? กดที่ฉันเพื่อจองคิวได้เลย` }));
+  }, []);
 
   return (
     <section id="top" className="hero">

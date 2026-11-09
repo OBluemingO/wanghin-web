@@ -9,7 +9,8 @@ export default function LineDemoModal() {
 
   useEffect(() => {
     const onClick = (e: Event) => {
-      const a = (e.target as HTMLElement).closest("[data-line-demo]");
+      // composedPath survives the target being re-rendered away by an earlier click handler
+      const a = e.composedPath().find((n) => n instanceof HTMLElement && n.hasAttribute("data-line-demo"));
       if (a) { e.preventDefault(); setOpen(true); }
     };
     document.addEventListener("click", onClick);
