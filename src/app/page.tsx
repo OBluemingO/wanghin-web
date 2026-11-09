@@ -64,7 +64,7 @@ export default function Home() {
               <figure key={d.nick} className="doctor">
                 <div className="doctor-photo">
                   {d.photo ? (
-                    <Image src={d.photo} alt={`${d.nick} ทันตแพทย์ด้าน${d.role}`} fill sizes="(max-width: 640px) 50vw, 240px" />
+                    <Image src={d.photo} alt={d.nick.startsWith("[") ? "ทันตแพทย์ของคลินิก" : `${d.nick} ทันตแพทย์ด้าน${d.role}`} fill sizes="(max-width: 640px) 50vw, 240px" />
                   ) : (
                     <span>รูปจริงของ{d.nick}</span>
                   )}

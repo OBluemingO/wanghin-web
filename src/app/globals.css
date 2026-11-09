@@ -100,7 +100,9 @@ h1, h2, h3, p { margin: 0; }
 .service-price .h-display { font-size: 22px; font-weight: 700; }
 .service-who { font-size: 14px; opacity: 0.8; }
 
-.doctor-grid { margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+.doctor-grid { margin-top: 36px; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 20px; }
+@media (max-width: 1080px) { .doctor-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .doctor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; } }
 .doctor { margin: 0; }
 .doctor-photo { position: relative; overflow: hidden; aspect-ratio: 4 / 5; border-radius: 120px 120px 20px 20px; background: var(--clean); display: flex; align-items: flex-end; justify-content: center; padding-bottom: 16px; font-size: 13px; color: #5f6b67; }
 .doctor-photo img { object-fit: cover; object-position: center 20%; }
